@@ -16,7 +16,7 @@ class Simulator {
 
     this.container = document.getElementById("ct-sim-container");
     this.map = new Map(this.config.map, this.container);
-    this.organisms = new Organisms(this.config.organisms, this.map.ctx);
+    this.organisms = new Organisms(this.config.organisms, this.map);
 
     this.start();
   }
@@ -24,7 +24,8 @@ class Simulator {
   start() {
     this.simInterval = setInterval(() => {
       this.map.background();
-    }, 500);
+      this.organisms.print();
+    }, 60 / 1000);
   }
 }
 
