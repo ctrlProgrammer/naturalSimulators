@@ -9,8 +9,8 @@ export default class Single {
       vision: 40,
       energy: 100,
       life: 100,
-      energyLost: 1,
-      lifeLost: 1,
+      energyLost: 0.1,
+      lifeLost: 0.1,
       maxEnergy: 100,
       maxLife: 100,
     };
