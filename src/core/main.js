@@ -6,11 +6,11 @@ class Simulator {
     this.config = {
       map: {
         background: "rgb(0,0,0)",
-        pixelSize: 10,
+        pixelSize: 5,
         size: 10 * 50,
       },
       organisms: {
-        init: 1,
+        init: 10,
       },
     };
 

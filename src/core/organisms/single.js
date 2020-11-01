@@ -3,15 +3,16 @@ export default class Single {
     this.type = type;
     this.map = map;
 
-    this.pos = [100, 100];
+    this.props = {
+      err: 1,
+      size: this.map.config.pixelSize,
+      vision: 100,
+    };
+
+    this.pos = this.randomPoint();
     this.to = [0, 0];
     this.vel = [1, 1];
-    this.acc = [0, 0];
-
-    this.props = {
-      err: 10,
-      size: this.map.config.pixelSize,
-    };
+    this.acc = [0.1, 0.1];
 
     this.status = {
       searching: true,
@@ -22,9 +23,42 @@ export default class Single {
     this.randomMove();
   }
 
-  randomMove() {
-    this.to[0] = Math.random() * (this.map.canvas.width - this.props.size);
-    this.to[1] = Math.random() * (this.map.canvas.height - this.props.size);
+  randomPoint() {
+    return [
+      Math.random() * (this.map.canvas.width - this.props.size),
+      Math.random() * (this.map.canvas.height - this.props.size),
+    ];
+  }
+
+  randomNearPoint() {
+    return [
+      Math.random() *
+        (this.pos[0] + this.props.vision - (this.pos[0] - this.props.vision)) +
+        (this.pos[0] - this.props.vision),
+      Math.random() *
+        (this.pos[1] + this.props.vision - (this.pos[1] - this.props.vision)) +
+        (this.pos[1] - this.props.vision),
+    ];
+  }
+
+  randomMove(type = "all") {
+    var point = [0, 0];
+
+    if (type === "all") point = this.randomPoint();
+    else if (type === "near") point = this.randomNearPoint();
+
+    this.to[0] =
+      point[0] > this.map.canvas.width
+        ? this.map.canvas.width
+        : point[0] < 0
+        ? 0
+        : point[0];
+    this.to[1] =
+      point[1] > this.map.canvas.height
+        ? this.map.canvas.height
+        : point[1] < 0
+        ? 0
+        : point[1];
   }
 
   move() {
@@ -34,7 +68,7 @@ export default class Single {
       this.pos[1] < this.to[1] + this.props.err &&
       this.pos[1] > this.to[1] - this.props.err
     ) {
-      this.randomMove();
+      this.randomMove("near");
     }
 
     if (
