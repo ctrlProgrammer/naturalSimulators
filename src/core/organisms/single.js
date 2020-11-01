@@ -68,7 +68,8 @@ export default class Single {
       this.pos[1] < this.to[1] + this.props.err &&
       this.pos[1] > this.to[1] - this.props.err
     ) {
-      this.randomMove("near");
+      if (Math.random() > 0.9) this.randomMove();
+      else this.randomMove("near");
     }
 
     if (
