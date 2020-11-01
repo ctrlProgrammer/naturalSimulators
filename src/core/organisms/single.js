@@ -6,7 +6,7 @@ export default class Single {
     this.props = {
       err: 1,
       size: this.map.config.pixelSize,
-      vision: 100,
+      vision: 40,
     };
 
     this.pos = this.randomPoint();
@@ -103,29 +103,47 @@ export default class Single {
     this.print();
   }
 
-  print() {
-    if (this.mode === "dev") {
-      this.map.ctx.beginPath();
-      this.map.ctx.fillStyle = "rgb(0,0,255)";
-      this.map.ctx.fillRect(
-        this.to[0],
-        this.to[1],
-        this.props.size / 2,
-        this.props.size / 2
-      );
-      this.map.ctx.closePath();
+  printVision() {
+    this.map.ctx.beginPath();
+    this.map.ctx.fillStyle = "rgba(0,255,0, 0.2)";
+    this.map.ctx.ellipse(
+      this.pos[0],
+      this.pos[1],
+      this.props.vision,
+      this.props.vision,
+      Math.PI,
+      0,
+      2 * Math.PI
+    );
+    this.map.ctx.fill();
+    this.map.ctx.closePath();
+  }
 
-      this.map.ctx.beginPath();
-      this.map.ctx.strokeStyle = "rgb(255,0,0)";
-      this.map.ctx.moveTo(this.pos[0], this.pos[1]);
-      this.map.ctx.lineTo(
-        this.to[0] + this.props.size / 4,
-        this.to[1] + this.props.size / 4
-      );
-      this.map.ctx.stroke();
-      this.map.ctx.closePath();
-    }
+  printMovementLine() {
+    this.map.ctx.beginPath();
+    this.map.ctx.strokeStyle = "rgb(255,0,0)";
+    this.map.ctx.moveTo(this.pos[0], this.pos[1]);
+    this.map.ctx.lineTo(
+      this.to[0] + this.props.size / 4,
+      this.to[1] + this.props.size / 4
+    );
+    this.map.ctx.stroke();
+    this.map.ctx.closePath();
+  }
 
+  printToPoint() {
+    this.map.ctx.beginPath();
+    this.map.ctx.fillStyle = "rgb(0,0,255)";
+    this.map.ctx.fillRect(
+      this.to[0],
+      this.to[1],
+      this.props.size / 2,
+      this.props.size / 2
+    );
+    this.map.ctx.closePath();
+  }
+
+  printOrg() {
     this.map.ctx.beginPath();
     this.map.ctx.fillStyle = "rgb(255,255,255)";
     this.map.ctx.ellipse(
@@ -139,5 +157,15 @@ export default class Single {
     );
     this.map.ctx.fill();
     this.map.ctx.closePath();
+  }
+
+  print() {
+    this.printOrg();
+
+    if (this.mode === "dev") {
+      this.printToPoint();
+      this.printMovementLine();
+      this.printVision();
+    }
   }
 }
