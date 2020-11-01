@@ -17,15 +17,13 @@ export default class Organisms {
   }
 
   create(type = "random") {
-    if (type === "random") {
-      this.all.push(new Single("random", this.map));
-    } else {
-    }
+    this.all.push(new Single(type, this.map));
   }
 
   print() {
-    this.all.forEach((org) => {
-      org.move();
+    this.all.forEach((org, index) => {
+      if (org.props.life > 0) org.move();
+      else this.all.splice(index, 1);
     });
   }
 }

@@ -11,7 +11,7 @@ export default class Single {
       life: 100,
       energyLost: 1,
       lifeLost: 1,
-      maxEnegy: 100,
+      maxEnergy: 100,
       maxLife: 100,
     };
 
@@ -106,6 +106,13 @@ export default class Single {
       this.pos[1] += this.vel[1];
     }
 
+    if (this.props.energy > 0) {
+      this.props.energy -= this.props.energyLost;
+      if (this.props.life < this.props.maxLife) {
+        this.props.life += this.props.lifeLost;
+      }
+    } else if (this.props.life > 0) this.props.life -= this.props.lifeLost;
+
     this.print();
   }
 
@@ -178,7 +185,7 @@ export default class Single {
     this.map.ctx.fillRect(
       this.pos[0] - this.props.size,
       this.pos[1] - this.props.size - 10,
-      (this.props.life * this.props.size * 2) / this.props.maxLife,
+      (this.props.energy * this.props.size * 2) / this.props.maxEnergy,
       3
     );
     this.map.ctx.closePath();
