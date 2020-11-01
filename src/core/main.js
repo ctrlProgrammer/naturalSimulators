@@ -10,7 +10,7 @@ class Simulator {
         size: 10 * 50,
       },
       organisms: {
-        init: 10,
+        init: 1,
       },
     };
 
@@ -25,7 +25,7 @@ class Simulator {
     this.simInterval = setInterval(() => {
       this.map.background();
       this.organisms.print();
-    }, 60 / 1000);
+    }, 1000 / 60);
   }
 }
 
