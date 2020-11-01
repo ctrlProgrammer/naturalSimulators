@@ -7,6 +7,12 @@ export default class Single {
       err: 1,
       size: this.map.config.pixelSize,
       vision: 40,
+      energy: 100,
+      life: 100,
+      energyLost: 1,
+      lifeLost: 1,
+      maxEnegy: 100,
+      maxLife: 100,
     };
 
     this.pos = this.randomPoint();
@@ -159,8 +165,28 @@ export default class Single {
     this.map.ctx.closePath();
   }
 
+  printOrgProps() {
+    this.map.ctx.beginPath();
+    this.map.ctx.fillStyle = "rgb(255,0,0)";
+    this.map.ctx.fillRect(
+      this.pos[0] - this.props.size,
+      this.pos[1] - this.props.size - 7,
+      (this.props.life * this.props.size * 2) / this.props.maxLife,
+      3
+    );
+    this.map.ctx.fillStyle = "rgb(250,209,54)";
+    this.map.ctx.fillRect(
+      this.pos[0] - this.props.size,
+      this.pos[1] - this.props.size - 10,
+      (this.props.life * this.props.size * 2) / this.props.maxLife,
+      3
+    );
+    this.map.ctx.closePath();
+  }
+
   print() {
     this.printOrg();
+    this.printOrgProps();
 
     if (this.mode === "dev") {
       this.printToPoint();
