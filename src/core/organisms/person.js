@@ -14,6 +14,7 @@ export default class Person {
       lifeLost: 0.1,
       maxEnergy: 100,
       maxLife: 100,
+      age: 1,
     };
 
     this.pos = pos ? pos : this.map.getRandomPoint();
@@ -24,7 +25,7 @@ export default class Person {
 
     this.status = {
       searching: true,
-      child: {pos: null},
+      child: { pos: null },
     };
 
     this.food = null;
@@ -32,6 +33,30 @@ export default class Person {
     this.mode = this.config.mode ? this.config.mode : "dev";
 
     this.randomMove();
+    this.startEvolution();
+  }
+
+  startEvolution() {
+    this.evolutionInterval = setInterval(() => {
+      //Die probability 0.01
+      var probability = 0;
+
+      if (this.props.age > 18 && this.props.age <= 100) {
+        // P1(18,0) , P2(100,100) parabola
+        //  (x - h)² = 4p(y - k)
+        //  p = 25
+        //  (x² - 36x + 324) / 100 = y
+        probability =
+          (this.props.age * this.props.age - 36 * this.props.age + 324) / 100;
+      }
+
+      if (Math.random() < probability) {
+        this.props.life = 0;
+        this.props.energy = 0;
+      } else {
+        this.props.age += 0.5;
+      }
+    }, 1000);
   }
 
   randomNearPoint() {
@@ -98,7 +123,10 @@ export default class Person {
             this.props.energy += this.food.proteins;
           } else {
             this.props.energy = this.props.maxEnergy;
-            this.status.child = {pos: this.randomNearPoint()};
+
+            if (this.props.age > 18) {
+              this.status.child = { pos: this.randomNearPoint() };
+            }
           }
         }
 
