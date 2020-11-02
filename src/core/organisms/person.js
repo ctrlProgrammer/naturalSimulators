@@ -1,8 +1,8 @@
-export default class Single {
+export default class Person {
   constructor(type = "random", map, config) {
     this.type = type;
-    this.map = map;
     this.config = config;
+    this.map = map;
 
     this.props = {
       err: 1,

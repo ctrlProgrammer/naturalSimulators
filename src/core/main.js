@@ -1,5 +1,5 @@
 import Map from "./map.js";
-import Organisms from "./organisms/controller.js";
+import Controller from "./controller.js";
 
 class Simulator {
   constructor() {
@@ -13,14 +13,19 @@ class Simulator {
         mode: this.mode,
       },
       organisms: {
-        init: 2,
+        person: 2,
+        mode: this.mode,
+      },
+      food: {
+        apple: 2,
         mode: this.mode,
       },
     };
 
     this.container = document.getElementById("ct-sim-container");
+
     this.map = new Map(this.config.map, this.container);
-    this.organisms = new Organisms(this.config.organisms, this.map);
+    this.controller = new Controller(this.config.organisms, this.map);
 
     this.start();
   }
@@ -28,7 +33,7 @@ class Simulator {
   start() {
     this.simInterval = setInterval(() => {
       this.map.background();
-      this.organisms.print();
+      this.controller.print();
     }, 1000 / 60);
   }
 }
