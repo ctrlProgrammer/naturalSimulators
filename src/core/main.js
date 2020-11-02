@@ -19,7 +19,7 @@ class Simulator {
       food: {
         apple: 2,
         mode: this.mode,
-        interval: 500,
+        interval: 300,
       },
     };
 

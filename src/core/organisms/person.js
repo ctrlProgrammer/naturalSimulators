@@ -38,10 +38,9 @@ export default class Person {
 
   startEvolution() {
     this.evolutionInterval = setInterval(() => {
-      //Die probability 0.01
       var probability = 0;
 
-      if (this.props.age > 18 && this.props.age <= 100) {
+      if (this.props.age > 30 && this.props.age <= 100) {
         // P1(18,0) , P2(100,100) parabola
         //  (x - h)² = 4p(y - k)
         //  p = 25
@@ -124,7 +123,8 @@ export default class Person {
           } else {
             this.props.energy = this.props.maxEnergy;
 
-            if (this.props.age > 18) {
+            // Reproduction capability
+            if (this.props.age > 16) {
               this.status.child = { pos: this.randomNearPoint() };
             }
           }
