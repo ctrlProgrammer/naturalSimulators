@@ -45,7 +45,10 @@ export default class Controller {
         } else this.all.splice(index, 1);
       }
 
-      if (org instanceof Apple) org.print(this.map.ctx);
+      if (org instanceof Apple) {
+        if (!org.ate) org.print(this.map.ctx);
+        else this.all.splice(index, 1);
+      }
     });
   }
 }

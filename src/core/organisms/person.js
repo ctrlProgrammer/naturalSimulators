@@ -48,6 +48,10 @@ export default class Person {
     if (type === "all") point = this.map.getRandomPoint();
     else if (type === "near") point = this.randomNearPoint();
 
+    this.moveTo(point);
+  }
+
+  moveTo(point) {
     this.to[0] =
       point[0] > this.map.canvas.width
         ? this.map.canvas.width
@@ -63,6 +67,16 @@ export default class Person {
   }
 
   move(apples) {
+    const nearApple = apples.findIndex(
+      (apple) =>
+        apple.pos[0] < this.pos[0] + this.props.vision &&
+        apple.pos[0] > this.pos[0] - this.props.vision &&
+        apple.pos[1] < this.pos[1] + this.props.vision &&
+        apple.pos[1] > this.pos[1] - this.props.vision
+    );
+
+    if (nearApple !== -1) this.moveTo(apples[nearApple].pos);
+
     if (
       this.pos[0] < this.to[0] + this.props.err &&
       this.pos[0] > this.to[0] - this.props.err &&
