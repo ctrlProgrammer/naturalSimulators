@@ -93,7 +93,7 @@ export default class Person {
     ) {
       if (!this.status.searching && this.food !== null) {
         if (!this.food.ate) this.props.energy += this.food.proteins;
-        
+
         this.food.ate = true;
         this.food = null;
         this.status.searching = true;
