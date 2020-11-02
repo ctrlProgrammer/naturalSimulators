@@ -1,5 +1,5 @@
 export default class Person {
-  constructor(type = "random", map, config) {
+  constructor(type = "random", map, config, pos = null) {
     this.type = type;
     this.config = config;
     this.map = map;
@@ -16,7 +16,7 @@ export default class Person {
       maxLife: 100,
     };
 
-    this.pos = this.map.getRandomPoint();
+    this.pos = pos ? pos : this.map.getRandomPoint();
 
     this.to = [0, 0];
     this.vel = [1, 1];
@@ -24,6 +24,7 @@ export default class Person {
 
     this.status = {
       searching: true,
+      child: {pos: null},
     };
 
     this.food = null;
@@ -92,7 +93,14 @@ export default class Person {
       this.pos[1] > this.to[1] - this.props.err
     ) {
       if (!this.status.searching && this.food !== null) {
-        if (!this.food.ate) this.props.energy += this.food.proteins;
+        if (!this.food.ate) {
+          if (this.props.energy + this.food.proteins < this.props.maxEnergy) {
+            this.props.energy += this.food.proteins;
+          } else {
+            this.props.energy = this.props.maxEnergy;
+            this.status.child = {pos: this.randomNearPoint()};
+          }
+        }
 
         this.food.ate = true;
         this.food = null;

@@ -13,13 +13,13 @@ class Simulator {
         mode: this.mode,
       },
       organisms: {
-        person: 20,
+        person: 5,
         mode: this.mode,
       },
       food: {
         apple: 2,
         mode: this.mode,
-        interval: 500,
+        interval: 200,
       },
     };
 
