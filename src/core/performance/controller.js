@@ -5,7 +5,6 @@ export default class Performance {
   }
 
   calcAverage() {
-    console.log("average");
     var sum = 0;
     for (var i = 0; i < this.all.length; i++) sum += this.all[i];
     console.warn(this.label + " performance average " + sum / this.all.length);
