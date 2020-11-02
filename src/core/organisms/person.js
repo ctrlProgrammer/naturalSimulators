@@ -219,11 +219,11 @@ export default class Person {
   print() {
     this.printOrg();
     this.printOrgProps();
+    this.printVision();
 
     if (this.mode === "dev") {
       this.printToPoint();
       this.printMovementLine();
-      this.printVision();
     }
   }
 }
