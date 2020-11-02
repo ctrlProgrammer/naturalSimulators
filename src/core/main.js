@@ -5,7 +5,7 @@ import Controller from "./controller.js";
 
 class Simulator {
   constructor() {
-    this.mode = "dev";
+    this.mode = "pro";
 
     this.config = {
       map: {
@@ -27,17 +27,26 @@ class Simulator {
 
     this.container = document.getElementById("ct-sim-container");
 
+    this.init();
+    this.start();
+  }
+
+  init() {
     this.map = new Map(this.config.map, this.container);
 
     this.controller = new Controller(
       { organisms: this.config.organisms, food: this.config.food },
       this.map
     );
+  }
 
-    // setInterval(() => {
-    //   console.clear();
-    // }, 10000);
+  restart() {
+    this.map.clear();
+    this.controller.clear();
 
+    clearInterval(this.simInterval);
+
+    this.init();
     this.start();
   }
 

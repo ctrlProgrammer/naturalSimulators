@@ -44,6 +44,13 @@ export default class Controller {
     }, this.config.food.interval);
   }
 
+  clear() {
+    this.people = [];
+    this.food = [];
+
+    clearInterval(this.appleInterval);
+  }
+
   print() {
     //! Two For bucle
     // For method 0.73 / 500 ops

@@ -33,4 +33,8 @@ export default class Map {
       Math.random() * this.canvas.height,
     ];
   }
+
+  clear() {
+    this.container.removeChild(this.canvas);
+  }
 }
