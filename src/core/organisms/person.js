@@ -26,6 +26,8 @@ export default class Person {
       searching: true,
     };
 
+    this.food = null;
+
     this.mode = this.config.mode ? this.config.mode : "dev";
 
     this.randomMove();
@@ -67,15 +69,21 @@ export default class Person {
   }
 
   move(apples) {
-    const nearApple = apples.findIndex(
-      (apple) =>
-        apple.pos[0] < this.pos[0] + this.props.vision &&
-        apple.pos[0] > this.pos[0] - this.props.vision &&
-        apple.pos[1] < this.pos[1] + this.props.vision &&
-        apple.pos[1] > this.pos[1] - this.props.vision
-    );
+    if (this.status.searching) {
+      const nearApple = apples.findIndex(
+        (apple) =>
+          apple.pos[0] < this.pos[0] + this.props.vision &&
+          apple.pos[0] > this.pos[0] - this.props.vision &&
+          apple.pos[1] < this.pos[1] + this.props.vision &&
+          apple.pos[1] > this.pos[1] - this.props.vision
+      );
 
-    if (nearApple !== -1) this.moveTo(apples[nearApple].pos);
+      if (nearApple !== -1) {
+        this.moveTo(apples[nearApple].pos);
+        this.status.searching = false;
+        this.food = apples[nearApple];
+      }
+    }
 
     if (
       this.pos[0] < this.to[0] + this.props.err &&
@@ -83,6 +91,14 @@ export default class Person {
       this.pos[1] < this.to[1] + this.props.err &&
       this.pos[1] > this.to[1] - this.props.err
     ) {
+      if (!this.status.searching && this.food !== null) {
+        if (!this.food.ate) this.props.energy += this.food.proteins;
+        
+        this.food.ate = true;
+        this.food = null;
+        this.status.searching = true;
+      }
+
       if (Math.random() > 0.9) this.randomMove();
       else this.randomMove("near");
     }

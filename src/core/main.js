@@ -3,23 +3,23 @@ import Controller from "./controller.js";
 
 class Simulator {
   constructor() {
-    this.mode = "dev";
+    this.mode = "pro";
 
     this.config = {
       map: {
         background: "rgb(0,0,0)",
         pixelSize: 5,
-        size: 10 * 50,
+        size: 10 * 100,
         mode: this.mode,
       },
       organisms: {
-        person: 2,
+        person: 20,
         mode: this.mode,
       },
       food: {
         apple: 2,
         mode: this.mode,
-        interval: 2000,
+        interval: 500,
       },
     };
 

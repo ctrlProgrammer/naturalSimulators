@@ -3,6 +3,7 @@ export default class Apple {
     this.pos = pos;
     this.size = size;
     this.ate = false;
+    this.proteins = 20;
   }
 
   print(ctx) {
