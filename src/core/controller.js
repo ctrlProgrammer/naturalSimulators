@@ -8,6 +8,8 @@ export default class Controller {
 
     this.all = [];
 
+    this.print = this.print.bind(this);
+
     this.init();
   }
 
@@ -42,9 +44,7 @@ export default class Controller {
   }
 
   print() {
-    var i = 0;
-
-    while (i < this.all.length) {
+    for (var i = 0; i < this.all.length; i++) {
       if (this.all[i] instanceof Person) {
         if (this.all[i].props.life > 0) {
           if (this.all[i].status.child.pos) {
@@ -63,8 +63,6 @@ export default class Controller {
         if (!this.all[i].ate) this.all[i].print(this.map.ctx);
         else this.all.splice(i, 1);
       }
-
-      i++;
     }
   }
 }

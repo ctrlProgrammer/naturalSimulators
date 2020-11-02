@@ -1,9 +1,11 @@
+import Performance from "./performance/controller.js";
+
 import Map from "./map.js";
 import Controller from "./controller.js";
 
 class Simulator {
   constructor() {
-    this.mode = "pro";
+    this.mode = "dev";
 
     this.config = {
       map: {
@@ -13,7 +15,7 @@ class Simulator {
         mode: this.mode,
       },
       organisms: {
-        person: 5,
+        person: 100,
         mode: this.mode,
       },
       food: {
@@ -32,13 +34,18 @@ class Simulator {
       this.map
     );
 
+    setInterval(() => {
+      console.clear();
+    }, 2000);
+
     this.start();
   }
 
   start() {
     this.simInterval = setInterval(() => {
       this.map.background();
-      this.controller.print();
+      if (this.mode === "dev") Performance.test(this.controller.print, "print");
+      else this.controller.print();
     }, 1000 / 60);
   }
 }
