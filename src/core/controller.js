@@ -42,25 +42,25 @@ export default class Controller {
   }
 
   print() {
-    this.all.forEach((org, index) => {
-      if (org instanceof Person) {
-        if (org.props.life > 0) {
-          if (org.status.child.pos) {
-            this.createPerson("static", org.status.child.pos);
-            org.status.child.pos = null;
+    for (var i = 0; i < this.all.length; i++) {
+      if (this.all[i] instanceof Person) {
+        if (this.all[i].props.life > 0) {
+          if (this.all[i].status.child.pos) {
+            this.createPerson("static", this.all[i].status.child.pos);
+            this.all[i].status.child.pos = null;
           }
 
-          org.move(this.all.filter((org) => org instanceof Apple));
+          this.all[i].move(this.all.filter((org) => org instanceof Apple));
         } else {
-          clearInterval(org.evolutionInterval);
-          this.all.splice(index, 1);
+          clearInterval(this.all[i].evolutionInterval);
+          this.all.splice(i, 1);
         }
       }
 
-      if (org instanceof Apple) {
-        if (!org.ate) org.print(this.map.ctx);
-        else this.all.splice(index, 1);
+      if (this.all[i] instanceof Apple) {
+        if (!this.all[i].ate) this.all[i].print(this.map.ctx);
+        else this.all.splice(i, 1);
       }
-    });
+    }
   }
 }
