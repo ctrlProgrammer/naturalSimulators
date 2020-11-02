@@ -93,20 +93,32 @@ export default class Person {
         : point[1];
   }
 
+  searchNearApple(apples) {
+    let apple = null;
+
+    for (let i = 0; i < apples.length; i++) {
+      if (
+        apples[i].pos[0] < this.pos[0] + this.props.vision &&
+        apples[i].pos[0] > this.pos[0] - this.props.vision &&
+        apples[i].pos[1] < this.pos[1] + this.props.vision &&
+        apples[i].pos[1] > this.pos[1] - this.props.vision
+      ) {
+        apple = apples[i];
+        break;
+      }
+    }
+
+    return apple;
+  }
+
   move(apples) {
     if (this.status.searching) {
-      const nearApple = apples.findIndex(
-        (apple) =>
-          apple.pos[0] < this.pos[0] + this.props.vision &&
-          apple.pos[0] > this.pos[0] - this.props.vision &&
-          apple.pos[1] < this.pos[1] + this.props.vision &&
-          apple.pos[1] > this.pos[1] - this.props.vision
-      );
+      const nearApple = this.searchNearApple(apples);
 
-      if (nearApple !== -1) {
-        this.moveTo(apples[nearApple].pos);
+      if (nearApple) {
+        this.moveTo(nearApple.pos);
         this.status.searching = false;
-        this.food = apples[nearApple];
+        this.food = nearApple;
       }
     }
 
