@@ -18,7 +18,7 @@ export default class Performance {
 
     end = new Date();
 
-    if (this.all.length > 2000) {
+    if (this.all.length > 500) {
       this.calcAverage();
       this.all = [];
     }
