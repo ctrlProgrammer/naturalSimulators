@@ -9,7 +9,7 @@ class Simulator {
       map: {
         background: "rgb(0,0,0)",
         pixelSize: 5,
-        size: 10 * 100,
+        size: 10 * 70,
         mode: this.mode,
       },
       organisms: {
@@ -19,7 +19,7 @@ class Simulator {
       food: {
         apple: 2,
         mode: this.mode,
-        interval: 200,
+        interval: 500,
       },
     };
 

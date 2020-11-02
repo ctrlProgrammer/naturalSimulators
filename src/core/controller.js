@@ -51,7 +51,10 @@ export default class Controller {
           }
 
           org.move(this.all.filter((org) => org instanceof Apple));
-        } else this.all.splice(index, 1);
+        } else {
+          clearInterval(org.evolutionInterval);
+          this.all.splice(index, 1);
+        }
       }
 
       if (org instanceof Apple) {
