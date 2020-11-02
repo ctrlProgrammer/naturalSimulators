@@ -15,7 +15,7 @@ class Simulator {
         mode: this.mode,
       },
       organisms: {
-        person: 100,
+        person: 10,
         mode: this.mode,
       },
       food: {
@@ -34,18 +34,23 @@ class Simulator {
       this.map
     );
 
-    setInterval(() => {
-      console.clear();
-    }, 2000);
+    // setInterval(() => {
+    //   console.clear();
+    // }, 10000);
 
     this.start();
   }
 
   start() {
+    var printPerformance = null;
+
+    if (this.mode === "dev") printPerformance = new Performance("print");
+
     this.simInterval = setInterval(() => {
       this.map.background();
-      if (this.mode === "dev") Performance.test(this.controller.print, "print");
-      else this.controller.print();
+      if (this.mode === "dev") {
+        printPerformance.test(this.controller.print);
+      } else this.controller.print();
     }, 1000 / 60);
   }
 }

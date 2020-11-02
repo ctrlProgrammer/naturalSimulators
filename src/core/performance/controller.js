@@ -1,5 +1,17 @@
 export default class Performance {
-  static test(callback, label) {
+  constructor(label) {
+    this.all = [];
+    this.label = label;
+  }
+
+  calcAverage() {
+    console.log("average");
+    var sum = 0;
+    for (var i = 0; i < this.all.length; i++) sum += this.all[i];
+    console.warn(this.label + " performance average " + sum / this.all.length);
+  }
+
+  test(callback) {
     var start = new Date();
     var end = null;
 
@@ -7,8 +19,11 @@ export default class Performance {
 
     end = new Date();
 
-    console.warn(
-      label + " performance: " + (end.getTime() - start.getTime()) + "ms"
-    );
+    if (this.all.length > 2000) {
+      this.calcAverage();
+      this.all = [];
+    }
+
+    this.all.push(end.getTime() - start.getTime());
   }
 }
