@@ -94,9 +94,9 @@ export default class Person {
   }
 
   searchNearApple(apples) {
-    let apple = null;
+    var apple = null;
 
-    for (let i = 0; i < apples.length; i++) {
+    for (var i = 0; i < apples.length; i++) {
       if (
         apples[i].pos[0] < this.pos[0] + this.props.vision &&
         apples[i].pos[0] > this.pos[0] - this.props.vision &&
