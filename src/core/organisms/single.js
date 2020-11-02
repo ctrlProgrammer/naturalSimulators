@@ -1,7 +1,8 @@
 export default class Single {
-  constructor(type = "random", map) {
+  constructor(type = "random", map, config) {
     this.type = type;
     this.map = map;
+    this.config = config;
 
     this.props = {
       err: 1,
@@ -24,7 +25,7 @@ export default class Single {
       searching: true,
     };
 
-    this.mode = "dev";
+    this.mode = this.config.mode ? this.config.mode : "dev";
 
     this.randomMove();
   }

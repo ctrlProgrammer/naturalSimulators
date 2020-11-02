@@ -3,14 +3,18 @@ import Organisms from "./organisms/controller.js";
 
 class Simulator {
   constructor() {
+    this.mode = "pro";
+
     this.config = {
       map: {
         background: "rgb(0,0,0)",
         pixelSize: 5,
         size: 10 * 50,
+        mode: this.mode,
       },
       organisms: {
-        init: 10,
+        init: 2,
+        mode: this.mode,
       },
     };
 

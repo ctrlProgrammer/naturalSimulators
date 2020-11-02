@@ -17,7 +17,7 @@ export default class Organisms {
   }
 
   create(type = "random") {
-    this.all.push(new Single(type, this.map));
+    this.all.push(new Single(type, this.map, this.config));
   }
 
   print() {
