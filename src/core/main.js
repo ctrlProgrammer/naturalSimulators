@@ -25,7 +25,15 @@ class Simulator {
       },
     };
 
+    this.restart = this.restart.bind(this);
+
     this.container = document.getElementById("ct-sim-container");
+
+    this.controls = {
+      restart: document.getElementById("ct-sim-restart"),
+    };
+
+    this.controls.restart.addEventListener("click", this.restart);
 
     this.init();
     this.start();
@@ -57,9 +65,9 @@ class Simulator {
 
     this.simInterval = setInterval(() => {
       this.map.background();
-      if (this.mode === "dev") {
-        printPerformance.test(this.controller.print);
-      } else this.controller.print();
+
+      if (this.mode === "dev") printPerformance.test(this.controller.print);
+      else this.controller.print();
     }, 1000 / 60);
   }
 }

@@ -45,6 +45,10 @@ export default class Controller {
   }
 
   clear() {
+    for (var i = 0; i < this.people.length; i++) {
+      clearInterval(this.people[i].evolutionInterval);
+    }
+
     this.people = [];
     this.food = [];
 
