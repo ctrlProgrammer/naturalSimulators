@@ -3,7 +3,7 @@ import Controller from "./controller.js";
 
 class Simulator {
   constructor() {
-    this.mode = "pro";
+    this.mode = "dev";
 
     this.config = {
       map: {
@@ -19,13 +19,18 @@ class Simulator {
       food: {
         apple: 2,
         mode: this.mode,
+        interval: 2000,
       },
     };
 
     this.container = document.getElementById("ct-sim-container");
 
     this.map = new Map(this.config.map, this.container);
-    this.controller = new Controller(this.config.organisms, this.map);
+
+    this.controller = new Controller(
+      { organisms: this.config.organisms, food: this.config.food },
+      this.map
+    );
 
     this.start();
   }

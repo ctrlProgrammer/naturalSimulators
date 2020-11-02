@@ -16,7 +16,8 @@ export default class Person {
       maxLife: 100,
     };
 
-    this.pos = this.randomPoint();
+    this.pos = this.map.getRandomPoint();
+
     this.to = [0, 0];
     this.vel = [1, 1];
     this.acc = [0.1, 0.1];
@@ -28,13 +29,6 @@ export default class Person {
     this.mode = this.config.mode ? this.config.mode : "dev";
 
     this.randomMove();
-  }
-
-  randomPoint() {
-    return [
-      Math.random() * (this.map.canvas.width - this.props.size),
-      Math.random() * (this.map.canvas.height - this.props.size),
-    ];
   }
 
   randomNearPoint() {
@@ -51,7 +45,7 @@ export default class Person {
   randomMove(type = "all") {
     var point = [0, 0];
 
-    if (type === "all") point = this.randomPoint();
+    if (type === "all") point = this.map.getRandomPoint();
     else if (type === "near") point = this.randomNearPoint();
 
     this.to[0] =
@@ -68,7 +62,7 @@ export default class Person {
         : point[1];
   }
 
-  move() {
+  move(apples) {
     if (
       this.pos[0] < this.to[0] + this.props.err &&
       this.pos[0] > this.to[0] - this.props.err &&

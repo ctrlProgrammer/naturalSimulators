@@ -26,4 +26,11 @@ export default class Map {
     this.ctx.fillRect(0, 0, this.config.size, this.config.size);
     this.ctx.closePath();
   }
+
+  getRandomPoint() {
+    return [
+      Math.random() * this.canvas.width,
+      Math.random() * this.canvas.height,
+    ];
+  }
 }
