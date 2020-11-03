@@ -7,6 +7,27 @@ class Simulator {
   constructor() {
     this.mode = "dev";
 
+    this.restart = this.restart.bind(this);
+
+    this.container = document.getElementById("ct-sim-container");
+
+    this.controls = {
+      restart: document.getElementById("ct-sim-restart"),
+      mode: document.getElementById("ct-sim-mode"),
+    };
+
+    this.controls.restart.addEventListener("click", this.restart);
+
+    this.controls.mode.addEventListener("click", () => {
+      this.mode = this.mode === "dev" ? "pro" : "dev";
+      this.restart();
+    });
+
+    this.init();
+    this.start();
+  }
+
+  init() {
     this.config = {
       map: {
         background: "rgb(0,0,0)",
@@ -25,21 +46,6 @@ class Simulator {
       },
     };
 
-    this.restart = this.restart.bind(this);
-
-    this.container = document.getElementById("ct-sim-container");
-
-    this.controls = {
-      restart: document.getElementById("ct-sim-restart"),
-    };
-
-    this.controls.restart.addEventListener("click", this.restart);
-
-    this.init();
-    this.start();
-  }
-
-  init() {
     this.map = new Map(this.config.map, this.container);
 
     this.controller = new Controller(
@@ -59,6 +65,7 @@ class Simulator {
   }
 
   start() {
+    console.log(this.mode);
     var printPerformance = null;
 
     if (this.mode === "dev") printPerformance = new Performance("print");
