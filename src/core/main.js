@@ -5,7 +5,7 @@ import Controller from "./controller.js";
 
 class Simulator {
   constructor() {
-    this.mode = "pro";
+    this.mode = "dev";
 
     this.config = {
       map: {
