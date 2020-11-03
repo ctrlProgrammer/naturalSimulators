@@ -8,6 +8,7 @@ class Simulator {
     this.mode = "dev";
 
     this.restart = this.restart.bind(this);
+    this.changeMode = this.changeMode.bind(this);
 
     this.container = document.getElementById("ct-sim-container");
 
@@ -17,14 +18,16 @@ class Simulator {
     };
 
     this.controls.restart.addEventListener("click", this.restart);
-
-    this.controls.mode.addEventListener("click", () => {
-      this.mode = this.mode === "dev" ? "pro" : "dev";
-      this.restart();
-    });
+    this.controls.mode.addEventListener("click", this.changeMode);
 
     this.init();
     this.start();
+  }
+
+  changeMode() {
+    this.mode = this.mode === "dev" ? "pro" : "dev";
+    this.controls.mode.innerHTML = this.mode === "dev" ? "pro" : "dev";
+    this.restart();
   }
 
   init() {
