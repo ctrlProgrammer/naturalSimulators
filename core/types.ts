@@ -1,4 +1,4 @@
-export enum Color {
-  BLACK = "#000",
-  WHITE = "#FFF",
-}
+export type Size = {
+  height: number;
+  width: number;
+};

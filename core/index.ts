@@ -1,22 +1,24 @@
-import { Map } from "./map/class";
-import { MapConfig } from "./map/types";
-import { Color } from "./types";
-
-interface OrganismsConfig {
-  init: number;
-}
+import Color from "./basis/color";
+import { Map, MapConfig } from "./map";
+import { Organisms, OrganismsConfig } from "./organisms";
 
 interface SimulatorConfig {
   map: MapConfig;
+  organisms: OrganismsConfig;
 }
-
-class Organisms {}
 
 class Simulator {
   private _map: Map;
+  private _organisms: Organisms;
 
   constructor(config: SimulatorConfig) {
     this._map = new Map(config.map);
+    this._organisms = new Organisms(config.map, config.organisms);
+    this._build();
+  }
+
+  private _build() {
+    this._map.build();
   }
 }
 
@@ -24,9 +26,12 @@ let config: SimulatorConfig = {
   map: {
     background: Color.BLACK,
     pixelSize: 5,
-    size: 200,
+    size: { height: 200, width: 200 },
     container: document.getElementById("simulator"),
+  },
+  organisms: {
+    init: 3,
   },
 };
 
-let simulator = new Simulator(config);
+new Simulator(config);

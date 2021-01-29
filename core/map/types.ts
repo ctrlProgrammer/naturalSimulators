@@ -1,8 +1,9 @@
-import { Color } from "../types";
+import Color from "../basis/color";
+import { Size } from "../types";
 
 export interface MapConfig {
   background: Color;
   pixelSize: number;
-  size: number;
+  size: Size;
   container: HTMLElement;
 }
