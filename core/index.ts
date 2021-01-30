@@ -33,6 +33,7 @@ class Simulator {
 
   private init() {
     this._map.printGrid();
+    this._organisms.init();
   }
 }
 
