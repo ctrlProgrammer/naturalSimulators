@@ -15,6 +15,11 @@ export enum MovementState {
   IN_NEXT_POS = "IN_NEXT_POS",
 }
 
+export type Decrement = {
+  life: number;
+  energy: number;
+};
+
 export class People implements Organism {
   type: OrganimsType.PEOPLE;
   life: number;
@@ -25,6 +30,10 @@ export class People implements Organism {
   private _eatState: EatState = EatState.SEARCHING_FOOD;
   private _nextPos: Point = { x: 0, y: 0 };
   private _vel: Point = { x: 1, y: 1 };
+  private _decrement: Decrement = { life: 1, energy: 1 };
+
+  private _lifeInterval: number;
+  private _years: number = 0;
 
   constructor(
     public printer: Printer,
@@ -43,6 +52,10 @@ export class People implements Organism {
       width: this.map.config.pixelSize,
     };
 
+    this._lifeInterval = setInterval(() => {
+      this._years++;
+      console.log(this._years);
+    }, 1000);
     this.move();
   }
 

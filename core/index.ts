@@ -1,5 +1,6 @@
 import Color from "./basis/color";
 import { Printer } from "./basis/printer";
+import { FPS } from "./constants";
 import { Map, MapConfig } from "./map";
 import { Organisms, OrganismsConfig } from "./organisms";
 
@@ -38,7 +39,7 @@ class Simulator {
       this._map.printBackground();
       this._map.printGrid();
       this._organisms.print();
-    }, 1000 / 60);
+    }, 1000 / FPS);
   }
 }
 
@@ -50,7 +51,7 @@ let config: SimulatorConfig = {
     container: document.getElementById("simulator"),
   },
   organisms: {
-    init: 3,
+    init: 20,
   },
 };
 
