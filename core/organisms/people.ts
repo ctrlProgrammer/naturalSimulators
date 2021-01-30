@@ -30,14 +30,17 @@ export class People implements Organism {
   ) {
     this.life = !!this.maxLife ? this.maxLife : 100;
     this.energy = !!this.maxEnergy ? this.maxEnergy : 100;
-    this.size = { height: 20, width: 20 };
+
+    this.size = {
+      height: this.map.config.pixelSize,
+      width: this.map.config.pixelSize,
+    };
 
     this.move();
   }
 
   move() {
     this._calcNextPos();
-    console.log();
     this.pos.x = this.pos.x < this._nextPos.x ? ++this.pos.x : --this.pos.x;
     this.pos.y = this.pos.y < this._nextPos.y ? ++this.pos.y : --this.pos.y;
   }
@@ -45,7 +48,6 @@ export class People implements Organism {
   private _calcNextPos() {
     if (this._state === PeopleState.IN_NEXT_POS) {
       this._nextPos = this.map.randomPos(this.size.width);
-      console.log(this._nextPos);
       this._state = PeopleState.TO_NEXT_POS;
     }
   }
