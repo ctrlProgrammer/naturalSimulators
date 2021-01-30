@@ -1,3 +1,4 @@
+import { Printer } from "../basis/printer";
 import { MapConfig } from "../map";
 
 export interface OrganismsConfig {
@@ -6,8 +7,10 @@ export interface OrganismsConfig {
 
 export class Organisms {
   constructor(
+    private _printer: Printer,
     private _mapConfig: MapConfig,
     private _config: OrganismsConfig
   ) {}
+
   public init() {}
 }

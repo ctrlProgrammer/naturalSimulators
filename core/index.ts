@@ -21,7 +21,12 @@ class Simulator {
 
     this._printer = new Printer(this._ctx);
     this._map = new Map(this._canvas, this._printer, this._config.map);
-    this._organisms = new Organisms(this._config.map, this._config.organisms);
+
+    this._organisms = new Organisms(
+      this._printer,
+      this._config.map,
+      this._config.organisms
+    );
 
     this._build();
   }

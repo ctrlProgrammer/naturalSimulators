@@ -10,15 +10,11 @@ export interface MapConfig {
 }
 
 export class Map {
-  private _config: MapConfig;
-
   constructor(
     private _canvas: HTMLCanvasElement,
     private _printer: Printer,
-    config: MapConfig
-  ) {
-    this._config = config;
-  }
+    private _config: MapConfig
+  ) {}
 
   public build() {
     this._canvas.height = this._config.size.height;
