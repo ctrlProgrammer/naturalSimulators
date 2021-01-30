@@ -5,7 +5,12 @@ import { Map, MapConfig } from "../map";
 import { Point, Size } from "../types";
 import { Organism } from "./organism";
 
-export enum PeopleState {
+export enum EatState {
+  SEARCHING_FOOD = "SEARCHING_FOOD",
+  EATING = "EATING",
+}
+
+export enum MovementState {
   TO_NEXT_POS = "TO_NEXT_POS",
   IN_NEXT_POS = "IN_NEXT_POS",
 }
@@ -16,8 +21,10 @@ export class People implements Organism {
   energy: number;
   size: Size;
 
-  private _state: PeopleState = PeopleState.IN_NEXT_POS;
+  private _movementState: MovementState = MovementState.IN_NEXT_POS;
+  private _eatState: EatState = EatState.SEARCHING_FOOD;
   private _nextPos: Point = { x: 0, y: 0 };
+  private _vel: Point = { x: 1, y: 1 };
 
   constructor(
     public printer: Printer,
@@ -40,15 +47,31 @@ export class People implements Organism {
   }
 
   move() {
+    if (this.pos.x === this._nextPos.x && this.pos.y === this._nextPos.y) {
+      this._movementState = MovementState.IN_NEXT_POS;
+    } else {
+      this.pos.x =
+        this.pos.x !== this._nextPos.x
+          ? this.pos.x < this._nextPos.x
+            ? this.pos.x + this._vel.x
+            : this.pos.x - this._vel.y
+          : this.pos.x;
+
+      this.pos.y =
+        this.pos.y !== this._nextPos.y
+          ? this.pos.y < this._nextPos.y
+            ? this.pos.y + this._vel.y
+            : this.pos.y - this._vel.y
+          : this.pos.y;
+    }
+
     this._calcNextPos();
-    this.pos.x = this.pos.x < this._nextPos.x ? ++this.pos.x : --this.pos.x;
-    this.pos.y = this.pos.y < this._nextPos.y ? ++this.pos.y : --this.pos.y;
   }
 
   private _calcNextPos() {
-    if (this._state === PeopleState.IN_NEXT_POS) {
+    if (this._movementState === MovementState.IN_NEXT_POS) {
       this._nextPos = this.map.randomPos(this.size.width);
-      this._state = PeopleState.TO_NEXT_POS;
+      this._movementState = MovementState.TO_NEXT_POS;
     }
   }
 
