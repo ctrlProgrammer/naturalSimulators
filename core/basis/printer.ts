@@ -1,5 +1,5 @@
-import { Point } from "../../types";
-import Color from "../color";
+import { Point } from "../types";
+import Color from "./color";
 
 export class Printer {
   constructor(public ctx: CanvasRenderingContext2D) {}
