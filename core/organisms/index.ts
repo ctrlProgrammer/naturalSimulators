@@ -23,19 +23,30 @@ export class Organisms {
 
   public init() {
     for (let i = 0; i < this._config.init; i++) {
-      this._people.push(
-        new People(
-          this._printer,
-          this._config,
-          this._map.config,
-          this._haveChildren
-        )
-      );
+      this._createPeople();
     }
+
+    console.log(this._people);
+  }
+
+  private _createPeople(pos?: Point) {
+    this._people.push(
+      new People(
+        this._printer,
+        this._config,
+        this._map.config,
+        this._haveChildren,
+        !!pos ? pos : this._map.randomPos()
+      )
+    );
   }
 
   private _haveChildren(parent: OrganimsType, pos?: Point) {
-    console.log(parent);
+    switch (parent) {
+      case OrganimsType.PEOPLE:
+        this._createPeople(pos);
+        break;
+    }
   }
 
   public print() {}

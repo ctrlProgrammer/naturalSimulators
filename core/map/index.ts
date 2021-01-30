@@ -1,6 +1,6 @@
 import Color from "../basis/color";
 import { Printer } from "../basis/printer";
-import { Size } from "../types";
+import { Point, Size } from "../types";
 
 export interface MapConfig {
   background: Color;
@@ -19,6 +19,13 @@ export class Map {
     this._canvas.width = this.config.size.width;
     this._canvas.style.background = this.config.background.rgb;
     this.config.container.appendChild(this._canvas);
+  }
+
+  randomPos(rest?: number): Point {
+    return {
+      x: Math.random() * this.config.size.width - (rest | 0) + (rest | 0),
+      y: Math.random() * this.config.size.height - (rest | 0) + (rest | 0),
+    };
   }
 
   public printGrid() {
