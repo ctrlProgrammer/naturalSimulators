@@ -14,11 +14,14 @@ class Simulator {
   constructor(config: SimulatorConfig) {
     this._map = new Map(config.map);
     this._organisms = new Organisms(config.map, config.organisms);
+
     this._build();
   }
 
   private _build() {
     this._map.build();
+    this._organisms.init();
+    this._map.printGrid();
   }
 }
 
@@ -26,7 +29,7 @@ let config: SimulatorConfig = {
   map: {
     background: Color.BLACK,
     pixelSize: 5,
-    size: { height: 200, width: 200 },
+    size: { height: 600, width: 500 },
     container: document.getElementById("simulator"),
   },
   organisms: {
