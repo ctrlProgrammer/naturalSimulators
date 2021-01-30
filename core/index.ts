@@ -34,6 +34,10 @@ class Simulator {
   private init() {
     this._map.printGrid();
     this._organisms.init();
+
+    setInterval(() => {
+      this._organisms.print();
+    }, 1000 / 60);
   }
 }
 

@@ -28,6 +28,14 @@ export class Map {
     };
   }
 
+  public printBackground() {
+    this._printer.printRect(
+      { x: 0, y: 0 },
+      { x: this.config.size.width, y: this.config.size.height },
+      this.config.background
+    );
+  }
+
   public printGrid() {
     let widthRange = this.config.size.width / this.config.pixelSize;
     let heightRange = this.config.size.height / this.config.pixelSize;

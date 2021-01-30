@@ -1,15 +1,16 @@
 import { OrganimsType, OrganismsConfig } from ".";
 import { Printer } from "../basis/printer";
-import { MapConfig } from "../map";
-import { Point } from "../types";
+import { Map, MapConfig } from "../map";
+import { Point, Size } from "../types";
 
 export interface Organism {
   type: OrganimsType;
   printer: Printer;
   config: OrganismsConfig;
-  mapConfig: MapConfig;
+  map: Map;
   life: number;
   energy: number;
+  size: Size;
   pos?: Point;
   maxLife?: number;
   maxEnergy?: number;

@@ -12,4 +12,17 @@ export class Printer {
     this.ctx.stroke();
     this.ctx.closePath();
   }
+
+  public printRect(topLeft: Point, bottomRight: Point, color: Color) {
+    this.ctx.beginPath();
+    this.ctx.rect(
+      topLeft.x,
+      topLeft.y,
+      bottomRight.x - topLeft.x,
+      bottomRight.y - topLeft.y
+    );
+    this.ctx.fillStyle = color.rgb;
+    this.ctx.fill();
+    this.ctx.closePath();
+  }
 }
