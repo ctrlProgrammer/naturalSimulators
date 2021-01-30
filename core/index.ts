@@ -24,7 +24,7 @@ class Simulator {
 
     this._organisms = new Organisms(
       this._printer,
-      this._config.map,
+      this._map,
       this._config.organisms
     );
 

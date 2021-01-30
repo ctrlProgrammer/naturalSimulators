@@ -1,5 +1,5 @@
 import { Printer } from "../basis/printer";
-import { MapConfig } from "../map";
+import { Map, MapConfig } from "../map";
 import { Point } from "../types";
 import { Organism } from "./organism";
 import { People } from "./people";
@@ -17,7 +17,7 @@ export class Organisms {
 
   constructor(
     private _printer: Printer,
-    private _mapConfig: MapConfig,
+    private _map: Map,
     private _config: OrganismsConfig
   ) {}
 
@@ -27,7 +27,7 @@ export class Organisms {
         new People(
           this._printer,
           this._config,
-          this._mapConfig,
+          this._map.config,
           this._haveChildren
         )
       );
