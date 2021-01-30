@@ -23,8 +23,12 @@ export class Map {
 
   randomPos(rest?: number): Point {
     return {
-      x: Math.random() * this.config.size.width - (rest | 0) + (rest | 0),
-      y: Math.random() * this.config.size.height - (rest | 0) + (rest | 0),
+      x: Math.floor(
+        Math.random() * this.config.size.width - (rest | 0) + (rest | 0)
+      ),
+      y: Math.floor(
+        Math.random() * this.config.size.height - (rest | 0) + (rest | 0)
+      ),
     };
   }
 

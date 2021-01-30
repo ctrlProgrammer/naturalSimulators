@@ -5,11 +5,19 @@ import { Map, MapConfig } from "../map";
 import { Point, Size } from "../types";
 import { Organism } from "./organism";
 
+export enum PeopleState {
+  TO_NEXT_POS = "TO_NEXT_POS",
+  IN_NEXT_POS = "IN_NEXT_POS",
+}
+
 export class People implements Organism {
   type: OrganimsType.PEOPLE;
   life: number;
   energy: number;
   size: Size;
+
+  private _state: PeopleState = PeopleState.IN_NEXT_POS;
+  private _nextPos: Point = { x: 0, y: 0 };
 
   constructor(
     public printer: Printer,
@@ -28,19 +36,33 @@ export class People implements Organism {
   }
 
   move() {
-    setInterval(() => {
-      this.pos.x = this.map.randomPos().x;
-      this.pos.y = this.map.randomPos().y;
-    }, 1000 / 60);
+    this._calcNextPos();
+    console.log();
+    this.pos.x = this.pos.x < this._nextPos.x ? ++this.pos.x : --this.pos.x;
+    this.pos.y = this.pos.y < this._nextPos.y ? ++this.pos.y : --this.pos.y;
   }
+
+  private _calcNextPos() {
+    if (this._state === PeopleState.IN_NEXT_POS) {
+      this._nextPos = this.map.randomPos(this.size.width);
+      console.log(this._nextPos);
+      this._state = PeopleState.TO_NEXT_POS;
+    }
+  }
+
   destroy() {}
+
   die() {}
+
   print() {
+    this.move();
+
     this.printer.printRect(
       { x: this.pos.x, y: this.pos.y },
       { x: this.pos.x + this.size.width, y: this.pos.y + this.size.height },
       Color.WHITE
     );
   }
+
   born() {}
 }
