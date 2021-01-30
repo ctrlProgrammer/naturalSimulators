@@ -15,13 +15,13 @@ class Simulator {
   private _canvas: HTMLCanvasElement;
   private _ctx: CanvasRenderingContext2D;
 
-  constructor(config: SimulatorConfig) {
+  constructor(private _config: SimulatorConfig) {
     this._canvas = document.createElement("canvas");
     this._ctx = this._canvas.getContext("2d");
 
     this._printer = new Printer(this._ctx);
-    this._map = new Map(this._canvas, this._printer, config.map);
-    this._organisms = new Organisms(config.map, config.organisms);
+    this._map = new Map(this._canvas, this._printer, this._config.map);
+    this._organisms = new Organisms(this._config.map, this._config.organisms);
 
     this._build();
   }
