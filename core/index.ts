@@ -1,4 +1,5 @@
 import Color from "./basis/color";
+import { Printer } from "./basis/printer";
 import { Map, MapConfig } from "./map";
 import { Organisms, OrganismsConfig } from "./organisms";
 
@@ -10,9 +11,16 @@ interface SimulatorConfig {
 class Simulator {
   private _map: Map;
   private _organisms: Organisms;
+  private _printer: Printer;
+  private _canvas: HTMLCanvasElement;
+  private _ctx: CanvasRenderingContext2D;
 
   constructor(config: SimulatorConfig) {
-    this._map = new Map(config.map);
+    this._canvas = document.createElement("canvas");
+    this._ctx = this._canvas.getContext("2d");
+
+    this._printer = new Printer(this._ctx);
+    this._map = new Map(this._canvas, this._printer, config.map);
     this._organisms = new Organisms(config.map, config.organisms);
 
     this._build();
