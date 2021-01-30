@@ -12,5 +12,5 @@ export class Organisms {
     private _config: OrganismsConfig
   ) {}
 
-  public init() {}
+  public print() {}
 }

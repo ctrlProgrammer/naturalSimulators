@@ -14,9 +14,7 @@ export class Map {
     private _canvas: HTMLCanvasElement,
     private _printer: Printer,
     private _config: MapConfig
-  ) {}
-
-  public build() {
+  ) {
     this._canvas.height = this._config.size.height;
     this._canvas.width = this._config.size.width;
     this._canvas.style.background = this._config.background.rgb;

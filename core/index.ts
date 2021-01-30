@@ -28,12 +28,10 @@ class Simulator {
       this._config.organisms
     );
 
-    this._build();
+    this.init();
   }
 
-  private _build() {
-    this._map.build();
-    this._organisms.init();
+  private init() {
     this._map.printGrid();
   }
 }
