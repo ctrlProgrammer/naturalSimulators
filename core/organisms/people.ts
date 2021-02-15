@@ -74,6 +74,10 @@ export class People implements Organism {
     };
   }
 
+  ///////////////////////////////
+  /* #region  Movement */
+  ///////////////////////////////
+
   move() {
     if (this.pos.x === this._nextPos.x && this.pos.y === this._nextPos.y) {
       this._movementState = MovementState.IN_NEXT_POS;
@@ -95,12 +99,26 @@ export class People implements Organism {
     }
   }
 
+  ///////////////////////////////
+  /* #endregion */
+  ///////////////////////////////
+
+  ///////////////////////////////
+  /* #region  Calculate */
+  ///////////////////////////////
+
   private _calcNextPos() {
     this._nextPos = this.map.randomPos(this.size.width);
     this._movementState = MovementState.TO_NEXT_POS;
   }
 
+  ///////////////////////////////
+  /* #endregion */
+  ///////////////////////////////
+
+  ///////////////////////////////
   /* #region Print */
+  ///////////////////////////////
 
   private _printNextPos() {
     this.printer.printRect(
@@ -129,7 +147,9 @@ export class People implements Organism {
     );
   }
 
+  ///////////////////////////////
   /* #endregion */
+  ///////////////////////////////
 
   destroy() {}
 
@@ -139,7 +159,7 @@ export class People implements Organism {
     this._printOrganism();
     this._printNextPos();
     this._printLineToNextPos();
-    
+
     this.move();
   }
 
