@@ -56,12 +56,28 @@ export class People implements Organism {
       this._years++;
       console.log(this._years);
     }, 1000);
-    this.move();
+
+    this._calcNextPos();
+  }
+
+  private get _centeredPos(): Point {
+    return {
+      x: this.pos.x + this.size.width / 2,
+      y: this.pos.y + this.size.height / 2,
+    };
+  }
+
+  private get _centeredNextPos(): Point {
+    return {
+      x: this._nextPos.x + this.size.width / 2,
+      y: this._nextPos.y + this.size.height / 2,
+    };
   }
 
   move() {
     if (this.pos.x === this._nextPos.x && this.pos.y === this._nextPos.y) {
       this._movementState = MovementState.IN_NEXT_POS;
+      this._calcNextPos();
     } else {
       this.pos.x =
         this.pos.x !== this._nextPos.x
@@ -77,29 +93,54 @@ export class People implements Organism {
             : this.pos.y - this._vel.y
           : this.pos.y;
     }
-
-    this._calcNextPos();
   }
 
   private _calcNextPos() {
-    if (this._movementState === MovementState.IN_NEXT_POS) {
-      this._nextPos = this.map.randomPos(this.size.width);
-      this._movementState = MovementState.TO_NEXT_POS;
-    }
+    this._nextPos = this.map.randomPos(this.size.width);
+    this._movementState = MovementState.TO_NEXT_POS;
   }
+
+  /* #region Print */
+
+  private _printNextPos() {
+    this.printer.printRect(
+      { x: this._nextPos.x, y: this._nextPos.y },
+      {
+        x: this._nextPos.x + this.size.width,
+        y: this._nextPos.y + this.size.height,
+      },
+      Color.BLUE
+    );
+  }
+
+  private _printLineToNextPos() {
+    this.printer.printLine(
+      this._centeredPos,
+      this._centeredNextPos,
+      Color.BLUE
+    );
+  }
+
+  private _printOrganism() {
+    this.printer.printRect(
+      { x: this.pos.x, y: this.pos.y },
+      { x: this.pos.x + this.size.width, y: this.pos.y + this.size.height },
+      Color.WHITE
+    );
+  }
+
+  /* #endregion */
 
   destroy() {}
 
   die() {}
 
   print() {
+    this._printOrganism();
+    this._printNextPos();
+    this._printLineToNextPos();
+    
     this.move();
-
-    this.printer.printRect(
-      { x: this.pos.x, y: this.pos.y },
-      { x: this.pos.x + this.size.width, y: this.pos.y + this.size.height },
-      Color.WHITE
-    );
   }
 
   born() {}
