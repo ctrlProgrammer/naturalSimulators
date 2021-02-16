@@ -20,6 +20,8 @@ export type Decrement = {
   energy: number;
 };
 
+export type HaveChildrenFunction = (parent: OrganimsType, pos?: Point) => void;
+
 export class People implements Organism {
   type: OrganimsType.PEOPLE;
   life: number;
@@ -37,9 +39,9 @@ export class People implements Organism {
 
   constructor(
     public printer: Printer,
-    public config: OrganismsConfig,
     public map: Map,
-    public haveChildren: (parent: OrganimsType, pos?: Point) => void,
+    public config: OrganismsConfig,
+    public haveChildren: HaveChildrenFunction,
     public pos?: Point,
     public maxLife?: number,
     public maxEnergy?: number
@@ -52,13 +54,12 @@ export class People implements Organism {
       width: this.map.config.pixelSize,
     };
 
-    this._lifeInterval = setInterval(() => {
-      this._years++;
-      console.log(this._years);
-    }, 1000);
-
     this._calcNextPos();
   }
+
+  ///////////////////////////////
+  /* #region  Getters */
+  ///////////////////////////////
 
   private get _centeredPos(): Point {
     return {
@@ -73,6 +74,10 @@ export class People implements Organism {
       y: this._nextPos.y + this.size.height / 2,
     };
   }
+
+  ///////////////////////////////
+  /* #endregion */
+  ///////////////////////////////
 
   ///////////////////////////////
   /* #region  Movement */
@@ -151,6 +156,10 @@ export class People implements Organism {
   /* #endregion */
   ///////////////////////////////
 
+  ///////////////////////////////
+  /* #region  Organisms basis */
+  ///////////////////////////////
+
   destroy() {}
 
   die() {}
@@ -164,4 +173,8 @@ export class People implements Organism {
   }
 
   born() {}
+
+  ///////////////////////////////
+  /* #endregion */
+  ///////////////////////////////
 }

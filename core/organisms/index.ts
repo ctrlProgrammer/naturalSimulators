@@ -33,8 +33,8 @@ export class Organisms {
         this._people.push(
           new People(
             this._printer,
-            this._config,
             this._map,
+            this._config,
             this._createOrganism,
             !!pos ? pos : this._map.randomPos()
           )
