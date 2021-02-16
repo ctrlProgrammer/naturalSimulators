@@ -1,9 +1,9 @@
 import { OrganimsType, OrganismsConfig } from ".";
 import Color from "../basis/color";
 import { Printer } from "../basis/printer";
-import { Map, MapConfig } from "../map";
+import { Map } from "../map";
 import { Point, Size } from "../types";
-import { Organism } from "./organism";
+import { HaveChildrenFunction, Organism } from "./organism";
 
 export enum EatState {
   SEARCHING_FOOD = "SEARCHING_FOOD",
@@ -20,9 +20,7 @@ export type Decrement = {
   energy: number;
 };
 
-export type HaveChildrenFunction = (parent: OrganimsType, pos?: Point) => void;
-
-export class People implements Organism {
+export class People extends Organism {
   type: OrganimsType.PEOPLE;
   life: number;
   energy: number;
@@ -30,6 +28,7 @@ export class People implements Organism {
 
   private _movementState: MovementState = MovementState.IN_NEXT_POS;
   private _eatState: EatState = EatState.SEARCHING_FOOD;
+
   private _nextPos: Point = { x: 0, y: 0 };
   private _vel: Point = { x: 1, y: 1 };
   private _decrement: Decrement = { life: 1, energy: 1 };
@@ -38,24 +37,44 @@ export class People implements Organism {
   private _years: number = 0;
 
   constructor(
-    public printer: Printer,
-    public map: Map,
-    public config: OrganismsConfig,
-    public haveChildren: HaveChildrenFunction,
-    public pos?: Point,
-    public maxLife?: number,
-    public maxEnergy?: number
+    printer: Printer,
+    map: Map,
+    config: OrganismsConfig,
+    haveChildren: HaveChildrenFunction,
+    pos?: Point,
+    maxLife?: number,
+    maxEnergy?: number
   ) {
-    this.life = !!this.maxLife ? this.maxLife : 100;
-    this.energy = !!this.maxEnergy ? this.maxEnergy : 100;
+    super(printer, map, config, haveChildren, pos, maxLife, maxEnergy);
 
+    this._setMaxLife();
+    this._setMaxEnergy();
+    this._setNormalSize();
+    this._calcNextPos();
+  }
+
+  ///////////////////////////////
+  /* #region  Init */
+  ///////////////////////////////
+
+  private _setMaxLife() {
+    this.life = !!this.maxLife ? this.maxLife : 100;
+  }
+
+  private _setMaxEnergy() {
+    this.energy = !!this.maxEnergy ? this.maxEnergy : 100;
+  }
+
+  private _setNormalSize() {
     this.size = {
       height: this.map.config.pixelSize,
       width: this.map.config.pixelSize,
     };
-
-    this._calcNextPos();
   }
+
+  ///////////////////////////////
+  /* #endregion */
+  ///////////////////////////////
 
   ///////////////////////////////
   /* #region  Getters */
