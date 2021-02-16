@@ -25,4 +25,26 @@ export class Printer {
     this.ctx.fill();
     this.ctx.closePath();
   }
+
+  public printCircle(
+    center: Point,
+    radius: number,
+    strokeColor: Color = null,
+    fillColor: Color = null
+  ) {
+    this.ctx.beginPath();
+    this.ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false);
+
+    if (strokeColor !== null) {
+      this.ctx.strokeStyle = strokeColor.rgb;
+      this.ctx.stroke();
+    }
+
+    if (fillColor !== null) {
+      this.ctx.fillStyle = fillColor.rgb;
+      this.ctx.fill();
+    }
+
+    this.ctx.closePath();
+  }
 }

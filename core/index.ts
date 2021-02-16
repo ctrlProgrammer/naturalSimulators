@@ -51,7 +51,7 @@ let config: SimulatorConfig = {
     container: document.getElementById("simulator"),
   },
   organisms: {
-    init: 20,
+    init: 1,
   },
 };
 

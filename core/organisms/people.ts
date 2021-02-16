@@ -35,6 +35,7 @@ export class People extends Organism {
 
   private _lifeInterval: number;
   private _years: number = 0;
+  private _confortArea: number = 100;
 
   constructor(
     printer: Printer,
@@ -171,6 +172,15 @@ export class People extends Organism {
     );
   }
 
+  private _printConfortArea() {
+    this.printer.printCircle(
+      this._centeredPos,
+      this._confortArea,
+      null,
+      Color.TRANSPARENT_BLUE
+    );
+  }
+
   ///////////////////////////////
   /* #endregion */
   ///////////////////////////////
@@ -187,6 +197,7 @@ export class People extends Organism {
     this._printOrganism();
     this._printNextPos();
     this._printLineToNextPos();
+    this._printConfortArea();
 
     this.move();
   }
