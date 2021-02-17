@@ -175,7 +175,6 @@ export class People extends Organism {
     this._printNextPos();
     this._printLineToNextPos();
     this._printConfortArea();
-
     this.move();
   }
 
