@@ -55,29 +55,6 @@ export class People extends Organism {
   }
 
   ///////////////////////////////
-  /* #region  Init */
-  ///////////////////////////////
-
-  private _setMaxLife() {
-    this.life = !!this.maxLife ? this.maxLife : 100;
-  }
-
-  private _setMaxEnergy() {
-    this.energy = !!this.maxEnergy ? this.maxEnergy : 100;
-  }
-
-  private _setNormalSize() {
-    this.size = {
-      height: this.map.config.pixelSize,
-      width: this.map.config.pixelSize,
-    };
-  }
-
-  ///////////////////////////////
-  /* #endregion */
-  ///////////////////////////////
-
-  ///////////////////////////////
   /* #region  Getters */
   ///////////////////////////////
 
