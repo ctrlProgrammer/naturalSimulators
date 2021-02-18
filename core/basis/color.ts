@@ -3,6 +3,7 @@ export default class Color {
   static WHITE = new Color(255, 255, 255);
   static GREY = new Color(50, 50, 50);
   static BLUE = new Color(0, 0, 255);
+  static RED = new Color(255, 0, 0);
   static TRANSPARENT_BLUE = new Color(0, 0, 255, 0.3);
 
   constructor(

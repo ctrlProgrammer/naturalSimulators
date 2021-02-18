@@ -1,7 +1,29 @@
 import { Point } from "../types";
 
+export class MathHelpers {
+  static gradesToRadians(grades: number) {
+    return (grades * Math.PI) / 180;
+  }
+
+  static radiansToGrades(radians: number) {
+    return (radians * 180) / Math.PI;
+  }
+}
+
 export class RandomHelpers {
-  static circleRandom(center: Point, radius: number) {}
+  static circleRandom(center: Point, radius: number): Point {
+    const randomGrade = RandomHelpers.linearRandom(0, 360);
+    const hipotenuse = RandomHelpers.linearRandom(0, radius);
+
+    return {
+      x:
+        Math.sin(MathHelpers.gradesToRadians(randomGrade)) * hipotenuse +
+        center.x,
+      y:
+        Math.cos(MathHelpers.gradesToRadians(randomGrade)) * hipotenuse +
+        center.y,
+    };
+  }
 
   static pointFloorRandom(min: Point, max: Point): Point {
     return {

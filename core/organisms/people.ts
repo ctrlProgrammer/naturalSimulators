@@ -1,5 +1,6 @@
 import { OrganimsType, OrganismsConfig } from ".";
 import Color from "../basis/color";
+import { RandomHelpers } from "../basis/helpers";
 import { Printer } from "../basis/printer";
 import { Map } from "../map";
 import { Point, Size } from "../types";
@@ -70,6 +71,10 @@ export class People extends Organism {
       x: this._nextPos.x + this.size.width / 2,
       y: this._nextPos.y + this.size.height / 2,
     };
+  }
+
+  private get _randomPosInConfortArea() {
+    return RandomHelpers.circleRandom(this.pos, this._confortArea);
   }
 
   ///////////////////////////////
