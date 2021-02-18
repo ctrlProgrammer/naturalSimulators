@@ -4,7 +4,9 @@ export default class Color {
   static GREY = new Color(50, 50, 50);
   static BLUE = new Color(0, 0, 255);
   static RED = new Color(255, 0, 0);
+  static GREEN = new Color(0, 255, 0);
   static TRANSPARENT_BLUE = new Color(0, 0, 255, 0.3);
+  static TRANSPARENT_GREEN = new Color(0, 255, 0, 0.3);
 
   constructor(
     private _r: number,

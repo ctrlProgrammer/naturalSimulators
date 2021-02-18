@@ -37,6 +37,7 @@ export class People extends Organism {
   private _lifeInterval: number;
   private _years: number = 0;
   private _confortArea: number = 100;
+  private _visualCamp: number = 50;
   private _extrovertProbability: number = 0.1;
 
   constructor(
@@ -73,8 +74,6 @@ export class People extends Organism {
       y: this._nextPos.y + this.size.height / 2,
     };
   }
-
-
 
   ///////////////////////////////
   /* #endregion */
@@ -189,6 +188,15 @@ export class People extends Organism {
     );
   }
 
+  private _printVisualCamp() {
+    this.printer.printCircle(
+      this._centeredPos,
+      this._visualCamp,
+      null,
+      Color.TRANSPARENT_GREEN
+    );
+  }
+
   ///////////////////////////////
   /* #endregion */
   ///////////////////////////////
@@ -206,6 +214,7 @@ export class People extends Organism {
     this._printNextPos();
     this._printLineToNextPos();
     this._printConfortArea();
+    this._printVisualCamp();
     this.move();
   }
 
