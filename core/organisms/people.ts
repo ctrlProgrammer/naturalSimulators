@@ -37,7 +37,7 @@ export class People extends Organism {
   private _lifeInterval: number;
   private _years: number = 0;
   private _confortArea: number = 100;
-  private _extrovertProbability: number = 0.2;
+  private _extrovertProbability: number = 0.1;
 
   constructor(
     printer: Printer,
@@ -88,6 +88,7 @@ export class People extends Organism {
 
   move() {
     if (this.pos.x === this._nextPos.x && this.pos.y === this._nextPos.y) {
+      this._movementState = MovementState.IN_NEXT_POS;
       this._calcNextPos();
     } else {
       this.pos.x =
@@ -115,8 +116,13 @@ export class People extends Organism {
   ///////////////////////////////
 
   private _calcNextPos() {
-    this._nextPos = this._randomPosInConfortArea();
-    console.log(this._nextPos);
+    if (Math.random() < this._extrovertProbability) {
+      this._nextPos = this.map.randomPos(this.size.width);
+    } else {
+      this._nextPos = this._randomPosInConfortArea();
+    }
+
+    this._movementState = MovementState.TO_NEXT_POS;
   }
 
   ///////////////////////////////
