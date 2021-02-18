@@ -75,7 +75,25 @@ export class People extends Organism {
   }
 
   private _randomPosInConfortArea() {
-    return RandomHelpers.circleFloorRandom(this.pos, this._confortArea);
+    const randomPointInConfortArea = RandomHelpers.circleFloorRandom(
+      this.pos,
+      this._confortArea
+    );
+
+    return {
+      x:
+        randomPointInConfortArea.x < 0
+          ? 0
+          : randomPointInConfortArea.x > this.map.config.size.width
+          ? this.map.config.size.width
+          : randomPointInConfortArea.x,
+      y:
+        randomPointInConfortArea.y < 0
+          ? 0
+          : randomPointInConfortArea.y > this.map.config.size.height
+          ? this.map.config.size.height
+          : randomPointInConfortArea.y,
+    };
   }
 
   ///////////////////////////////
