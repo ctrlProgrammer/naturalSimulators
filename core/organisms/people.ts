@@ -74,27 +74,7 @@ export class People extends Organism {
     };
   }
 
-  private _randomPosInConfortArea() {
-    const randomPointInConfortArea = RandomHelpers.circleFloorRandom(
-      this.pos,
-      this._confortArea
-    );
 
-    return {
-      x:
-        randomPointInConfortArea.x < 0
-          ? 0
-          : randomPointInConfortArea.x > this.map.config.size.width
-          ? this.map.config.size.width
-          : randomPointInConfortArea.x,
-      y:
-        randomPointInConfortArea.y < 0
-          ? 0
-          : randomPointInConfortArea.y > this.map.config.size.height
-          ? this.map.config.size.height
-          : randomPointInConfortArea.y,
-    };
-  }
 
   ///////////////////////////////
   /* #endregion */
@@ -137,10 +117,32 @@ export class People extends Organism {
     if (Math.random() < this._extrovertProbability) {
       this._nextPos = this.map.randomPos(this.size.width);
     } else {
-      this._nextPos = this._randomPosInConfortArea();
+      this._nextPos = this._calcRandomPosInConfortArea();
     }
 
     this._movementState = MovementState.TO_NEXT_POS;
+  }
+
+  private _calcRandomPosInConfortArea() {
+    const randomPointInConfortArea = RandomHelpers.circleFloorRandom(
+      this.pos,
+      this._confortArea
+    );
+
+    return {
+      x:
+        randomPointInConfortArea.x < 0
+          ? 0
+          : randomPointInConfortArea.x > this.map.config.size.width
+          ? this.map.config.size.width
+          : randomPointInConfortArea.x,
+      y:
+        randomPointInConfortArea.y < 0
+          ? 0
+          : randomPointInConfortArea.y > this.map.config.size.height
+          ? this.map.config.size.height
+          : randomPointInConfortArea.y,
+    };
   }
 
   ///////////////////////////////
