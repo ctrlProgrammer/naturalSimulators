@@ -25,6 +25,22 @@ export class RandomHelpers {
     };
   }
 
+  static circleFloorRandom(center: Point, radius: number): Point {
+    const randomGrade = RandomHelpers.linearRandom(0, 360);
+    const hipotenuse = RandomHelpers.linearRandom(0, radius);
+
+    return {
+      x: Math.floor(
+        Math.sin(MathHelpers.gradesToRadians(randomGrade)) * hipotenuse +
+          center.x
+      ),
+      y: Math.floor(
+        Math.cos(MathHelpers.gradesToRadians(randomGrade)) * hipotenuse +
+          center.y
+      ),
+    };
+  }
+
   static pointFloorRandom(min: Point, max: Point): Point {
     return {
       x: RandomHelpers.linearFloorRandom(min.x, max.x),
