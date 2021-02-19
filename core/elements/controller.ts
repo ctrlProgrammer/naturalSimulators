@@ -1,35 +1,35 @@
 import { Printer } from "../basis/printer";
 import { Map, MapConfig } from "../map";
 import { Point } from "../types";
-import { Organism } from "./organism";
-import { People } from "./people";
+import { Organism } from "./organims/organism";
+import { People } from "./organims/people";
 
-export interface OrganismsConfig {
+export interface ElementsControllerConfig {
   init: number;
 }
 
-export enum OrganimsType {
+export enum ElementType {
   PEOPLE = "PEOPLE",
 }
 
-export class Organisms {
+export class ElementsController {
   private _people: People[] = [];
 
   constructor(
     private _printer: Printer,
     private _map: Map,
-    private _config: OrganismsConfig
+    private _config: ElementsControllerConfig
   ) {}
 
   public init() {
     for (let i = 0; i < this._config.init; i++) {
-      this._createOrganism(OrganimsType.PEOPLE);
+      this._createOrganism(ElementType.PEOPLE);
     }
   }
 
-  private _createOrganism(type: OrganimsType, pos?: Point) {
+  private _createOrganism(type: ElementType, pos?: Point) {
     switch (type) {
-      case OrganimsType.PEOPLE:
+      case ElementType.PEOPLE:
         this._people.push(
           new People(
             this._printer,

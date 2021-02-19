@@ -1,12 +1,12 @@
-import { OrganimsType, OrganismsConfig } from ".";
-import { Printer } from "../basis/printer";
-import { Map } from "../map";
-import { Point, Size } from "../types";
+import { ElementType, ElementsControllerConfig } from "../controller";
+import { Printer } from "../../basis/printer";
+import { Map } from "../../map";
+import { Point, Size } from "../../types";
 
-export type HaveChildrenFunction = (parent: OrganimsType, pos?: Point) => void;
+export type HaveChildrenFunction = (parent: ElementType, pos?: Point) => void;
 
 export abstract class Organism {
-  type: OrganimsType;
+  type: ElementType;
   life: number;
   energy: number;
   size: Size;
@@ -14,7 +14,7 @@ export abstract class Organism {
   constructor(
     public printer: Printer,
     public map: Map,
-    public config: OrganismsConfig,
+    public config: ElementsControllerConfig,
     public haveChildren: HaveChildrenFunction,
     public pos?: Point,
     public maxLife?: number,

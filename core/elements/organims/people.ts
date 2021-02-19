@@ -1,9 +1,9 @@
-import { OrganimsType, OrganismsConfig } from ".";
-import Color from "../basis/color";
-import { RandomHelpers } from "../basis/helpers";
-import { Printer } from "../basis/printer";
-import { Map } from "../map";
-import { Point, Size } from "../types";
+import { ElementType, ElementsControllerConfig } from "../controller";
+import Color from "../../basis/color";
+import { RandomHelpers } from "../../basis/helpers";
+import { Printer } from "../../basis/printer";
+import { Map } from "../../map";
+import { Point, Size } from "../../types";
 import { HaveChildrenFunction, Organism } from "./organism";
 
 export enum EatState {
@@ -22,7 +22,7 @@ export type Decrement = {
 };
 
 export class People extends Organism {
-  type: OrganimsType.PEOPLE;
+  type: ElementType.PEOPLE;
   life: number;
   energy: number;
   size: Size;
@@ -43,7 +43,7 @@ export class People extends Organism {
   constructor(
     printer: Printer,
     map: Map,
-    config: OrganismsConfig,
+    config: ElementsControllerConfig,
     haveChildren: HaveChildrenFunction,
     pos?: Point,
     maxLife?: number,
@@ -202,6 +202,18 @@ export class People extends Organism {
   ///////////////////////////////
 
   ///////////////////////////////
+  /* #region Collisions */
+  ///////////////////////////////
+
+  public withApples() {}
+
+  public withOtherPeople() {}
+
+  ///////////////////////////////
+  /* #endregion */
+  ///////////////////////////////
+
+  ///////////////////////////////
   /* #region  Organisms basis */
   ///////////////////////////////
 
@@ -215,6 +227,7 @@ export class People extends Organism {
     this._printLineToNextPos();
     this._printConfortArea();
     this._printVisualCamp();
+
     this.move();
   }
 

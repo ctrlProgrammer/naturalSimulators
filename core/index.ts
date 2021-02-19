@@ -2,16 +2,19 @@ import Color from "./basis/color";
 import { Printer } from "./basis/printer";
 import { FPS } from "./constants";
 import { Map, MapConfig } from "./map";
-import { Organisms, OrganismsConfig } from "./organisms";
+import {
+  ElementsController,
+  ElementsControllerConfig,
+} from "./elements/controller";
 
 interface SimulatorConfig {
   map: MapConfig;
-  organisms: OrganismsConfig;
+  elementsController: ElementsControllerConfig;
 }
 
 class Simulator {
   private _map: Map;
-  private _organisms: Organisms;
+  private _organisms: ElementsController;
   private _printer: Printer;
   private _canvas: HTMLCanvasElement;
   private _ctx: CanvasRenderingContext2D;
@@ -23,10 +26,10 @@ class Simulator {
     this._printer = new Printer(this._ctx);
     this._map = new Map(this._canvas, this._printer, this._config.map);
 
-    this._organisms = new Organisms(
+    this._organisms = new ElementsController(
       this._printer,
       this._map,
-      this._config.organisms
+      this._config.elementsController
     );
 
     this.init();
@@ -50,8 +53,8 @@ let config: SimulatorConfig = {
     size: { height: 600, width: 500 },
     container: document.getElementById("simulator"),
   },
-  organisms: {
-    init: 1,
+  elementsController: {
+    init: 3,
   },
 };
 
