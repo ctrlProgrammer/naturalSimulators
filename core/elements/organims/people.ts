@@ -219,6 +219,7 @@ export class People extends Organism {
     if (this._eatState === EatState.SEARCHING_FOOD) {
       for (let i = 0; i < apples.length; i++) {
         if (
+          !apples[i].taken &&
           MathHelpers.isThePointInCircle(apples[i].pos, {
             center: this.pos,
             radius: this._visualCamp,
