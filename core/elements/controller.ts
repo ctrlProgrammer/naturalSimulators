@@ -30,6 +30,16 @@ export class ElementsController {
     for (let i = 0; i < this._config.init; i++) {
       this._createOrganism(ElementType.PEOPLE);
       this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
+      this._createOrganism(ElementType.APPLE);
     }
   }
 
@@ -61,11 +71,13 @@ export class ElementsController {
 
   public print() {
     for (let i = 0; i < this._people.length; i++) {
+      this._people[i].withApples(this._apples);
       this._people[i].print();
     }
 
     for (let i = 0; i < this._apples.length; i++) {
-      this._apples[i].print();
+      if (!this._apples[i].taken) this._apples[i].print();
+      else this._apples.splice(i, 1);
     }
   }
 }

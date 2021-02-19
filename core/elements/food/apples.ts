@@ -37,7 +37,9 @@ export class Apple extends Food {
   /* #region Basis  */
   ///////////////////////////////
 
-  destroy() {}
+  destroy() {
+    this.taken = true;
+  }
 
   print() {
     this.printer.printRect(

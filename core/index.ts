@@ -54,7 +54,7 @@ let config: SimulatorConfig = {
     container: document.getElementById("simulator"),
   },
   elementsController: {
-    init: 3,
+    init: 1,
   },
 };
 

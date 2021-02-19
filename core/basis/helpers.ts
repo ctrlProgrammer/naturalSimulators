@@ -1,4 +1,4 @@
-import { Point } from "../types";
+import { Circle, Point } from "../types";
 
 export class MathHelpers {
   static gradesToRadians(grades: number) {
@@ -7,6 +7,14 @@ export class MathHelpers {
 
   static radiansToGrades(radians: number) {
     return (radians * 180) / Math.PI;
+  }
+
+  static isThePointInCircle(point: Point, circle: Circle) {
+    return (
+      Math.pow(point.x - circle.center.x, 2) +
+        Math.pow(point.y - circle.center.y, 2) <=
+      Math.pow(circle.radius, 2)
+    );
   }
 }
 

@@ -1,13 +1,15 @@
 import { ElementType, ElementsControllerConfig } from "../controller";
 import Color from "../../basis/color";
-import { RandomHelpers } from "../../basis/helpers";
+import { MathHelpers, RandomHelpers } from "../../basis/helpers";
 import { Printer } from "../../basis/printer";
 import { Map } from "../../map";
 import { Point, Size } from "../../types";
 import { HaveChildrenFunction, Organism } from "./organism";
+import { Apple } from "../food/apples";
 
 export enum EatState {
   SEARCHING_FOOD = "SEARCHING_FOOD",
+  FIND_FOOD = "FIND_FOOD",
   EATING = "EATING",
 }
 
@@ -39,6 +41,8 @@ export class People extends Organism {
   private _confortArea: number = 100;
   private _visualCamp: number = 50;
   private _extrovertProbability: number = 0.1;
+
+  private _nextFood: Apple = null;
 
   constructor(
     printer: Printer,
@@ -85,6 +89,12 @@ export class People extends Organism {
 
   move() {
     if (this.pos.x === this._nextPos.x && this.pos.y === this._nextPos.y) {
+      if (this._eatState === EatState.FIND_FOOD) {
+        this._nextFood.destroy();
+        this._nextFood = null;
+        this._eatState = EatState.SEARCHING_FOOD;
+      }
+
       this._movementState = MovementState.IN_NEXT_POS;
       this._calcNextPos();
     } else {
@@ -205,7 +215,22 @@ export class People extends Organism {
   /* #region Collisions */
   ///////////////////////////////
 
-  public withApples() {}
+  public withApples(apples: Apple[]) {
+    if (this._eatState === EatState.SEARCHING_FOOD) {
+      for (let i = 0; i < apples.length; i++) {
+        if (
+          MathHelpers.isThePointInCircle(apples[i].pos, {
+            center: this.pos,
+            radius: this._visualCamp,
+          })
+        ) {
+          this._eatState = EatState.FIND_FOOD;
+          this._nextPos = apples[i].pos;
+          this._nextFood = apples[i];
+        }
+      }
+    }
+  }
 
   public withOtherPeople() {}
 

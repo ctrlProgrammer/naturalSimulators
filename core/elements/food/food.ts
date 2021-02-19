@@ -6,6 +6,7 @@ import { Point, Size } from "../../types";
 export abstract class Food {
   type: ElementType;
   size: Size;
+  taken: boolean = false;
 
   constructor(
     public printer: Printer,

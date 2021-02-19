@@ -7,3 +7,8 @@ export type Point = {
   x: number;
   y: number;
 };
+
+export type Circle = {
+  radius: number;
+  center: Point;
+};
