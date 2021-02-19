@@ -1,6 +1,7 @@
 import { Printer } from "../basis/printer";
 import { Map, MapConfig } from "../map";
 import { Point } from "../types";
+import { Apple } from "./food/apples";
 import { Organism } from "./organims/organism";
 import { People } from "./organims/people";
 
@@ -9,11 +10,15 @@ export interface ElementsControllerConfig {
 }
 
 export enum ElementType {
+  //Organisms
   PEOPLE = "PEOPLE",
+  //Food
+  APPLE = "APPLE",
 }
 
 export class ElementsController {
   private _people: People[] = [];
+  private _apples: Apple[] = [];
 
   constructor(
     private _printer: Printer,
@@ -24,6 +29,7 @@ export class ElementsController {
   public init() {
     for (let i = 0; i < this._config.init; i++) {
       this._createOrganism(ElementType.PEOPLE);
+      this._createOrganism(ElementType.APPLE);
     }
   }
 
@@ -40,12 +46,26 @@ export class ElementsController {
           )
         );
         break;
+      case ElementType.APPLE:
+        this._apples.push(
+          new Apple(
+            this._printer,
+            this._map,
+            this._config,
+            !!pos ? pos : this._map.randomPos()
+          )
+        );
+        break;
     }
   }
 
   public print() {
     for (let i = 0; i < this._people.length; i++) {
       this._people[i].print();
+    }
+
+    for (let i = 0; i < this._apples.length; i++) {
+      this._apples[i].print();
     }
   }
 }
