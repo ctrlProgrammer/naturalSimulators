@@ -32,10 +32,10 @@ export class Map {
     let y = randomInCircle.y;
 
     if (x > this.config.size.width) x = this.config.size.width;
-    if (x < 0) x = 0;
+    else if (x < 0) x = 0;
 
     if (y > this.config.size.height) y = this.config.size.height;
-    if (y < 0) y = 0;
+    else if (y < 0) y = 0;
 
     return { x, y };
   }
