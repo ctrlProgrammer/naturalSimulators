@@ -98,19 +98,9 @@ export class People extends Organism {
       this._movementState = MovementState.IN_NEXT_POS;
       this._calcNextPos();
     } else {
-      this.pos.x =
-        this.pos.x !== this._nextPos.x
-          ? this.pos.x < this._nextPos.x
-            ? this.pos.x + this._vel.x
-            : this.pos.x - this._vel.y
-          : this.pos.x;
+      this.pos.x = this.pos.x !== this._nextPos.x ? (this.pos.x < this._nextPos.x ? this.pos.x + this._vel.x : this.pos.x - this._vel.y) : this.pos.x;
 
-      this.pos.y =
-        this.pos.y !== this._nextPos.y
-          ? this.pos.y < this._nextPos.y
-            ? this.pos.y + this._vel.y
-            : this.pos.y - this._vel.y
-          : this.pos.y;
+      this.pos.y = this.pos.y !== this._nextPos.y ? (this.pos.y < this._nextPos.y ? this.pos.y + this._vel.y : this.pos.y - this._vel.y) : this.pos.y;
     }
   }
 
@@ -123,35 +113,9 @@ export class People extends Organism {
   ///////////////////////////////
 
   private _calcNextPos() {
-    if (Math.random() < this._extrovertProbability) {
-      this._nextPos = this.map.randomPos(this.size.width);
-    } else {
-      this._nextPos = this._calcRandomPosInConfortArea();
-    }
-
+    if (Math.random() < this._extrovertProbability) this._nextPos = this.map.randomPos();
+    else this._nextPos = this.map.randomCirclePos(this.pos, this._confortArea);
     this._movementState = MovementState.TO_NEXT_POS;
-  }
-
-  private _calcRandomPosInConfortArea() {
-    const randomPointInConfortArea = RandomHelpers.circleFloorRandom(
-      this.pos,
-      this._confortArea
-    );
-
-    return {
-      x:
-        randomPointInConfortArea.x < 0
-          ? 0
-          : randomPointInConfortArea.x > this.map.config.size.width
-          ? this.map.config.size.width
-          : randomPointInConfortArea.x,
-      y:
-        randomPointInConfortArea.y < 0
-          ? 0
-          : randomPointInConfortArea.y > this.map.config.size.height
-          ? this.map.config.size.height
-          : randomPointInConfortArea.y,
-    };
   }
 
   ///////////////////////////////
@@ -174,37 +138,19 @@ export class People extends Organism {
   }
 
   private _printLineToNextPos() {
-    this.printer.printLine(
-      this._centeredPos,
-      this._centeredNextPos,
-      Color.BLUE
-    );
+    this.printer.printLine(this._centeredPos, this._centeredNextPos, Color.BLUE);
   }
 
   private _printOrganism() {
-    this.printer.printRect(
-      { x: this.pos.x, y: this.pos.y },
-      { x: this.pos.x + this.size.width, y: this.pos.y + this.size.height },
-      Color.WHITE
-    );
+    this.printer.printRect({ x: this.pos.x, y: this.pos.y }, { x: this.pos.x + this.size.width, y: this.pos.y + this.size.height }, Color.WHITE);
   }
 
   private _printConfortArea() {
-    this.printer.printCircle(
-      this._centeredPos,
-      this._confortArea,
-      null,
-      Color.TRANSPARENT_BLUE
-    );
+    this.printer.printCircle(this._centeredPos, this._confortArea, null, Color.TRANSPARENT_BLUE);
   }
 
   private _printVisualCamp() {
-    this.printer.printCircle(
-      this._centeredPos,
-      this._visualCamp,
-      null,
-      Color.TRANSPARENT_GREEN
-    );
+    this.printer.printCircle(this._centeredPos, this._visualCamp, null, Color.TRANSPARENT_GREEN);
   }
 
   ///////////////////////////////
