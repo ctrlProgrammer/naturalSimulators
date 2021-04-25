@@ -97,11 +97,12 @@ export class People extends Organism {
 
       this._movementState = MovementState.IN_NEXT_POS;
       this._calcNextPos();
-    } else {
-      this.pos.x = this.pos.x !== this._nextPos.x ? (this.pos.x < this._nextPos.x ? this.pos.x + this._vel.x : this.pos.x - this._vel.y) : this.pos.x;
+    } else this.walk();
+  }
 
-      this.pos.y = this.pos.y !== this._nextPos.y ? (this.pos.y < this._nextPos.y ? this.pos.y + this._vel.y : this.pos.y - this._vel.y) : this.pos.y;
-    }
+  walk() {
+    this.pos.x = this.pos.x !== this._nextPos.x ? (this.pos.x < this._nextPos.x ? this.pos.x + this._vel.x : this.pos.x - this._vel.y) : this.pos.x;
+    this.pos.y = this.pos.y !== this._nextPos.y ? (this.pos.y < this._nextPos.y ? this.pos.y + this._vel.y : this.pos.y - this._vel.y) : this.pos.y;
   }
 
   ///////////////////////////////
