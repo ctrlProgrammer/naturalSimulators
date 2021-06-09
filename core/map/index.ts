@@ -1,4 +1,5 @@
 import Color from "../basis/color";
+import { RandomHelpers } from "../basis/helpers";
 import { Printer } from "../basis/printer";
 import { Point, Size } from "../types";
 
@@ -21,11 +22,26 @@ export class Map {
     this.config.container.appendChild(this._canvas);
   }
 
-  randomPos(rest?: number): Point {
+  randomPos(): Point {
     return {
-      x: Math.floor(Math.random() * this.config.size.width - (rest | 0) + (rest | 0)),
-      y: Math.floor(Math.random() * this.config.size.height - (rest | 0) + (rest | 0)),
+      x: Math.floor(Math.random() * this.config.size.width),
+      y: Math.floor(Math.random() * this.config.size.height),
     };
+  }
+
+  randomCirclePos(center: Point, radius: number): Point {
+    let randomInCircle = RandomHelpers.circleFloorRandom(center, radius);
+
+    let x = randomInCircle.x;
+    let y = randomInCircle.y;
+
+    if (x > this.config.size.width) x = this.config.size.width;
+    else if (x < 0) x = 0;
+
+    if (y > this.config.size.height) y = this.config.size.height;
+    else if (y < 0) y = 0;
+
+    return { x, y };
   }
 
   public printBackground() {

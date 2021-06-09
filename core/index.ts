@@ -22,7 +22,6 @@ class Simulator {
 
     this._printer = new Printer(this._ctx);
     this._map = new Map(this._canvas, this._printer, this._config.map);
-
     this._organisms = new ElementsController(
       this._printer,
       this._map,
@@ -47,7 +46,7 @@ let config: SimulatorConfig = {
   map: {
     background: Color.BLACK,
     pixelSize: 5,
-    size: { height: 600, width: 500 },
+    size: { height: 870, width: 1900 },
     container: document.getElementById("simulator"),
   },
   elementsController: {
