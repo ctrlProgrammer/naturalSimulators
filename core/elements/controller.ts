@@ -59,8 +59,10 @@ export class ElementsController {
 
   public print() {
     for (let i = 0; i < this._people.length; i++) {
-      this._people[i].withApples(this._apples);
-      this._people[i].print();
+      if (this._people[i].life > 0) {
+        this._people[i].withApples(this._apples);
+        this._people[i].print();
+      } else this._people.splice(i, 1);
     }
 
     for (let i = 0; i < this._apples.length; i++) {

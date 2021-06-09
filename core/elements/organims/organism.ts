@@ -50,6 +50,22 @@ export abstract class Organism {
     };
   }
 
+  protected validateStats() {
+    if (this.life > 0) {
+      if (this.energy > 0 && this.life < this.maxLife) this.life++;
+      if (this.energy > 0) this.energy--;
+      else this.life--;
+    } else {
+      this.die();
+      this._destroy();
+    }
+  }
+
+  protected eat(proteins: number) {
+    //TODO Normalize to energy standar
+    this.energy += proteins;
+  }
+
   ///////////////////////////////
   /* #endregion */
   ///////////////////////////////

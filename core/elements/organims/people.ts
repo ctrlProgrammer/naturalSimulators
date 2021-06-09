@@ -86,6 +86,8 @@ export class People extends Organism {
   ///////////////////////////////
 
   move() {
+    this.validateStats();
+
     if (this.pos.x === this._nextPos.x && this.pos.y === this._nextPos.y) {
       if (this._eatState === EatState.FIND_FOOD) {
         this._nextFood.destroy();
