@@ -6,6 +6,10 @@ import { Point, Size } from "../../types";
 export type HaveChildrenFunction = (parent: ElementType, pos?: Point) => void;
 
 export abstract class Organism {
+  private _lifeInterval: number;
+
+  public _years: number = 0;
+
   type: ElementType;
   life: number;
   energy: number;
@@ -19,11 +23,17 @@ export abstract class Organism {
     public pos?: Point,
     public maxLife?: number,
     public maxEnergy?: number
-  ) {}
+  ) {
+    this._createLifeInterval();
+  }
 
   ///////////////////////////////
   /* #region  Init */
   ///////////////////////////////
+
+  private _createLifeInterval() {
+    this._lifeInterval = setInterval(() => this._years++, 1000);
+  }
 
   protected _setMaxLife() {
     this.life = !!this.maxLife ? this.maxLife : 100;
@@ -46,7 +56,10 @@ export abstract class Organism {
 
   abstract print(): void;
   abstract move(): void;
-  abstract destroy(): void;
   abstract die(): void;
   abstract born(): void;
+
+  private _destroy() {
+    clearInterval(this._lifeInterval);
+  }
 }

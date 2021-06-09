@@ -36,8 +36,6 @@ export class People extends Organism {
   private _vel: Point = { x: 1, y: 1 };
   private _decrement: Decrement = { life: 1, energy: 1 };
 
-  private _lifeInterval: number;
-  private _years: number = 0;
   private _confortArea: number = 100;
   private _visualCamp: number = 50;
   private _extrovertProbability: number = 0.1;
@@ -133,10 +131,7 @@ export class People extends Organism {
   }
 
   private _calcRandomPosInConfortArea() {
-    const randomPointInConfortArea = RandomHelpers.circleFloorRandom(
-      this.pos,
-      this._confortArea
-    );
+    const randomPointInConfortArea = RandomHelpers.circleFloorRandom(this.pos, this._confortArea);
 
     return {
       x:
@@ -174,11 +169,7 @@ export class People extends Organism {
   }
 
   private _printLineToNextPos() {
-    this.printer.printLine(
-      this._centeredPos,
-      this._centeredNextPos,
-      Color.BLUE
-    );
+    this.printer.printLine(this._centeredPos, this._centeredNextPos, Color.BLUE);
   }
 
   private _printOrganism() {
@@ -190,21 +181,11 @@ export class People extends Organism {
   }
 
   private _printConfortArea() {
-    this.printer.printCircle(
-      this._centeredPos,
-      this._confortArea,
-      null,
-      Color.TRANSPARENT_BLUE
-    );
+    this.printer.printCircle(this._centeredPos, this._confortArea, null, Color.TRANSPARENT_BLUE);
   }
 
   private _printVisualCamp() {
-    this.printer.printCircle(
-      this._centeredPos,
-      this._visualCamp,
-      null,
-      Color.TRANSPARENT_GREEN
-    );
+    this.printer.printCircle(this._centeredPos, this._visualCamp, null, Color.TRANSPARENT_GREEN);
   }
 
   ///////////////////////////////
@@ -242,8 +223,6 @@ export class People extends Organism {
   ///////////////////////////////
   /* #region  Organisms basis */
   ///////////////////////////////
-
-  destroy() {}
 
   die() {}
 

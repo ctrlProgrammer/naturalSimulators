@@ -1,8 +1,7 @@
 import { Printer } from "../basis/printer";
-import { Map, MapConfig } from "../map";
+import { Map } from "../map";
 import { Point } from "../types";
 import { Apple } from "./food/apples";
-import { Organism } from "./organims/organism";
 import { People } from "./organims/people";
 
 export interface ElementsControllerConfig {
