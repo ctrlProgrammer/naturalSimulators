@@ -23,12 +23,8 @@ export class Map {
 
   randomPos(rest?: number): Point {
     return {
-      x: Math.floor(
-        Math.random() * this.config.size.width - (rest | 0) + (rest | 0)
-      ),
-      y: Math.floor(
-        Math.random() * this.config.size.height - (rest | 0) + (rest | 0)
-      ),
+      x: Math.floor(Math.random() * this.config.size.width - (rest | 0) + (rest | 0)),
+      y: Math.floor(Math.random() * this.config.size.height - (rest | 0) + (rest | 0)),
     };
   }
 
@@ -59,5 +55,9 @@ export class Map {
         Color.GREY
       );
     }
+  }
+
+  public createRandomGenerator(interval: number, callback: (pos: Point) => any) {
+    return setInterval(() => callback(this.randomPos()), interval);
   }
 }

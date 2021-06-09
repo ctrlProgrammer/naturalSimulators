@@ -30,17 +30,11 @@ export class ElementsController {
     for (let i = 0; i < this._config.init; i++) {
       this._createOrganism(ElementType.PEOPLE);
       this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
-      this._createOrganism(ElementType.APPLE);
     }
+
+    this._map.createRandomGenerator(2000, (pos: Point) =>
+      this._createOrganism(ElementType.APPLE, pos)
+    );
   }
 
   private _createOrganism(type: ElementType, pos?: Point) {
@@ -58,12 +52,7 @@ export class ElementsController {
         break;
       case ElementType.APPLE:
         this._apples.push(
-          new Apple(
-            this._printer,
-            this._map,
-            this._config,
-            !!pos ? pos : this._map.randomPos()
-          )
+          new Apple(this._printer, this._map, this._config, !!pos ? pos : this._map.randomPos())
         );
         break;
     }

@@ -2,10 +2,7 @@ import Color from "./basis/color";
 import { Printer } from "./basis/printer";
 import { FPS } from "./constants";
 import { Map, MapConfig } from "./map";
-import {
-  ElementsController,
-  ElementsControllerConfig,
-} from "./elements/controller";
+import { ElementsController, ElementsControllerConfig } from "./elements/controller";
 
 interface SimulatorConfig {
   map: MapConfig;
@@ -54,7 +51,7 @@ let config: SimulatorConfig = {
     container: document.getElementById("simulator"),
   },
   elementsController: {
-    init: 1,
+    init: 5,
   },
 };
 
